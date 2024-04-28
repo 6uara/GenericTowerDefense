@@ -6,6 +6,8 @@ public class EnemyMovement : MonoBehaviour
 {
     [Header("Attributes")]
     [SerializeField] private float moveSpeed = 2f;
+    [SerializeField] private int health = 5;
+    [SerializeField] private GameObject drop;
 
     [Header("References")]
     [SerializeField] private Rigidbody2D rb;
@@ -33,6 +35,10 @@ public class EnemyMovement : MonoBehaviour
         if (Vector2.Distance(target.position, transform.position) <= 0.1f)
         {
             pathIndex++;
+            health -= 2;
+            if(health <= 0){
+                Die();
+            }
             if (pathIndex >= LevelManager.main.path.Length)
             {
                 Destroy(gameObject);
@@ -52,5 +58,12 @@ public class EnemyMovement : MonoBehaviour
 
         Vector2 direction = (target.position - transform.position).normalized;
         rb.velocity = direction * moveSpeed;
+    }
+
+
+    public void Die(){
+        Destroy(gameObject);
+        Instantiate(drop,transform.position,transform.rotation);
+        
     }
 }
