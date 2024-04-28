@@ -51,6 +51,11 @@ public class Queue<T>
         return items[front];
     }
 
+    public int Count()
+    {
+        return items.Length;
+    }
+
     public bool IsEmpty()
     {
         return size == 0;

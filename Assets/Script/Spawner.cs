@@ -5,39 +5,38 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [Header("Spawn Settings")]
-    public GameObject[] enemyPrefabs; // Array for two enemy prefabs
-    public float spawnInterval = 2f;
-    public int maxEnemies = 10;
-    public Transform[] spawnPoints;
+    [SerializeField] private GameObject[] enemyPrefabs;
+    [SerializeField] private Transform[] spawnPoints;
+    [SerializeField] private float spawnInterval;
+    [SerializeField] private int maxEnemies = 20;
 
     private Queue<GameObject> enemyQueue;
     private int enemiesSpawned = 0;
     private float spawnTimer = 0f;
+    private float nextSpawnTime = 0;
 
     private void Start()
     {
-        // Initialize the enemy queue
-        enemyQueue = new Queue<GameObject>();
-        // Enqueue enemies in the desired order (repeat pattern if needed)
+        enemyQueue = new Queue<GameObject>(maxEnemies);
         enemyQueue.Enqueue(enemyPrefabs[0]);
         enemyQueue.Enqueue(enemyPrefabs[1]);
-        // ... add more enemies to the queue as needed ...
     }
 
     private void Update()
     {
-        if (enemiesSpawned >= maxEnemies || enemyQueue.Count == 0)
+        if (enemiesSpawned >= maxEnemies || enemyQueue.Count() == 0)
         {
             return;
         }
 
-        spawnTimer += Time.deltaTime;
-
-        if (spawnTimer >= spawnInterval)
+        if (spawnTimer >= nextSpawnTime)
         {
             SpawnEnemy();
-            spawnTimer = 0f;
+
+            float randomInterval = Random.Range(1f, 4f);
+            nextSpawnTime = Time.time + randomInterval;
         }
+        spawnTimer += Time.deltaTime;
     }
 
     private void SpawnEnemy()
@@ -47,7 +46,6 @@ public class Spawner : MonoBehaviour
         Instantiate(enemyToSpawn, randomSpawnPoint.position, Quaternion.identity);
         enemiesSpawned++;
 
-        // Re-enqueue the enemy to maintain the spawn order
         enemyQueue.Enqueue(enemyToSpawn);
     }
 }
