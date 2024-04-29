@@ -6,89 +6,62 @@ using UnityEngine;
 public class TurretScript : MonoBehaviour
 {
     [Header("Shooting Settings")]
-    [SerializeField]private GameObject projectilePrefab; // Projectile prefab to shoot
-    [SerializeField]private Transform firePoint; // Point from where projectiles are fired
-    [SerializeField]private float fireRate = 1f; // Rate of fire (projectiles per second)
-    [SerializeField]private float rotationSpeed = 5f; // Speed at which the turret rotates
+    [SerializeField]private GameObject projectilePrefab;
+    [SerializeField]private Transform firePoint;
+    [SerializeField]private float fireRate = 2f;
 
-    private bool provoked = false;
+    private Stack<GameObject> enemyStack;
 
-    private GameObject targetEnemy = null; // Reference to the current target enemy
-    private float fireTimer; // Timer to control firing rate
+    private float timer = 2;
+    private float timeUntilFire = 0;
+    private int enemyQuantity = 20;
+    private GameObject actualEnemy;
+
+    private void Start()
+    {
+        enemyStack = new Stack<GameObject>();
+        enemyStack.InicializarPila(enemyQuantity);
+        timeUntilFire = 0f;
+        timer = 2;
+    }
 
     private void Update()
     {
-        // Find the nearest enemy
-        //FindNearestEnemy();
-
-        // If there's a target enemy, aim and shoot
-        if (targetEnemy != null)
+        timeUntilFire += Time.deltaTime;
+        if (!enemyStack.PilaVacia())
         {
-            // Rotate turret to aim at the target enemy
-            //Vector2 direction = targetEnemy.transform.position - transform.position;
-            //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-            //Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
-
-            // Fire projectile if enough time has passed since the last shot
-            //fireTimer += Time.deltaTime;
-            //if (fireTimer >= 1f / fireRate)
-            //{
-            Shoot();
-            //fireTimer = 0f;
-           // }
-        }else{
-            provoked = false;
-        }
-    }
-
-    private void FindNearestEnemy()
-    {
-        // Find all enemies in the scene
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-        // If there are no enemies, return
-        if (enemies.Length == 0)
-        {
-            targetEnemy = null;
-            return;
-        }
-
-        // Find the nearest enemy
-        float shortestDistance = Mathf.Infinity;
-        GameObject nearestEnemy = null;
-        foreach (GameObject enemy in enemies)
-        {
-            float distanceToEnemy = Vector2.Distance(transform.position, enemy.transform.position);
-            if (distanceToEnemy < shortestDistance)
+            if (timeUntilFire >= 1f/timer)
             {
-                shortestDistance = distanceToEnemy;
-                nearestEnemy = enemy;
+                actualEnemy = enemyStack.Tope();
+                if (actualEnemy != null)
+                {
+                    Shoot(actualEnemy.transform);
+                }
+                timeUntilFire = 0;
             }
         }
-
-        // Set the nearest enemy as the target
-        targetEnemy = nearestEnemy;
     }
 
-    private void Shoot()
+    private void Shoot(Transform enemyTransform)
     {
-        // Instantiate a projectile at the fire point
-        Debug.Log("Entered Shoot");
-        Instantiate(projectilePrefab, firePoint.position, transform.rotation);
+        GameObject bullet = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+        ProjectileScript bulletScript = bullet.GetComponent<ProjectileScript>();
+        bulletScript.SetTarget(enemyTransform);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Enemy")&& provoked == false){
-            targetEnemy = other.gameObject;
-            provoked = true;
-            Debug.Log("lock on");
+        if (other.CompareTag("Enemy"))
+        {
+            enemyStack.Apilar(other.gameObject);
         }
     }
 
-
-    void OnTriggerExit2D(Collider2D other){
-        provoked = false;
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            enemyStack.Desapilar();
+        }
     }
 }

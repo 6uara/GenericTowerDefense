@@ -29,16 +29,15 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
-        if (target == null) // Make sure target is not null
+        if (target == null)
+        {
             return;
+        }
 
         if (Vector2.Distance(target.position, transform.position) <= 0.1f)
         {
             pathIndex++;
-            health -= 2;
-            if(health <= 0){
-                Die();
-            }
+
             if (pathIndex >= LevelManager.main.path.Length)
             {
                 Destroy(gameObject);
@@ -53,17 +52,30 @@ public class EnemyMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (target == null) // Make sure target is not null
+        if (target == null)
+        {
             return;
+        }
+        else
+        {
+            Vector2 direction = (target.position - transform.position).normalized;
+            rb.velocity = direction * moveSpeed;
+        }
+    }
 
-        Vector2 direction = (target.position - transform.position).normalized;
-        rb.velocity = direction * moveSpeed;
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0) 
+        {
+            Die();
+        }
     }
 
 
-    public void Die(){
+    public void Die()
+    {
         Destroy(gameObject);
         Instantiate(drop,transform.position,transform.rotation);
-        
     }
 }

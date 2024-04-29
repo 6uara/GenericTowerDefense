@@ -1,51 +1,83 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Stack<T>
+public class Stack<T> : IStack<T>
 {
-    private T[] items;
-    private int top;
+    private int indice;
+    private bool inicializado = false;
+    private T[] array;
 
-    public Stack(int size)
+    public void Apilar(T elemento)
     {
-        items = new T[size];
-        top = -1;
-    }
-
-    public void Push(T item)
-    {
-        if (top == items.Length - 1)
+        if (inicializado)
         {
-            throw new InvalidOperationException("Stack is full");
+            array[indice] = elemento;
+            indice++;
         }
-
-        items[++top] = item;
-    }
-
-    public T Pop()
-    {
-        if (top == -1)
+        else
         {
-            throw new InvalidOperationException("Stack is empty");
+            throw new Exception("Pila no inicializada");
         }
-
-        return items[top--];
     }
 
-    public T Peek()
+    public void Desapilar()
     {
-        if (top == -1)
+        if (inicializado)
         {
-            throw new InvalidOperationException("Stack is empty");
+            if (indice != 0)
+            {
+                array[indice] = default;
+                indice--;
+            }
+            else
+            {
+                throw new Exception("La pila no contiene ningun valor");
+            }
         }
-
-        return items[top];
+        else
+        {
+            throw new Exception("Pila no inicializada");
+        }
     }
 
-    public bool IsEmpty()
+    public void InicializarPila(int cantidad)
     {
-        return top == -1;
+        array = new T[cantidad];
+        indice = 0;
+        inicializado = true;
+    }
+
+    public bool PilaVacia()
+    {
+        if (inicializado)
+        {
+            if (indice != 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        else
+        {
+            throw new Exception("Pila no inicializada");
+        }
+    }
+
+    public T Tope()
+    {
+        if (indice != 0)
+        {
+            return array[indice-1];
+        }
+        else
+        {
+            throw new Exception("La pila no contiene ningun valor");
+        }
     }
 }

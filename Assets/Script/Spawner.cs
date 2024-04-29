@@ -19,7 +19,6 @@ public class Spawner : MonoBehaviour
     {
         enemyQueue = new Queue<GameObject>(maxEnemies);
         enemyQueue.Enqueue(enemyPrefabs[0]);
-        enemyQueue.Enqueue(enemyPrefabs[1]);
     }
 
     private void Update()
