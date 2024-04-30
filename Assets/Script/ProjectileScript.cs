@@ -5,17 +5,15 @@ using UnityEngine;
 
 public class ProjectileScript : MonoBehaviour
 {
+    [SerializeField] private ProjectileData data;
+
     [SerializeField] private Rigidbody2D rb;
     
     private Transform target;
-    private int damage;
-    private float bulletSpeed = 10f;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        bulletSpeed = 10f;
-        damage = 1;
     }
     private void FixedUpdate()
     {
@@ -26,7 +24,7 @@ public class ProjectileScript : MonoBehaviour
         else
         {
             Vector2 direction = (target.position - transform.position).normalized;
-            rb.velocity = direction * bulletSpeed;
+            rb.velocity = direction * data.Speed;
         }
     }
     public void SetTarget(Transform enemyTarget)
@@ -39,7 +37,7 @@ public class ProjectileScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Destroy(gameObject,2f);
-            collision.gameObject.GetComponent<EnemyMovement>().TakeDamage(damage);
+            collision.gameObject.GetComponent<BaseEnemy>().TakeDamage(data.Damage);
         }
     }
 }

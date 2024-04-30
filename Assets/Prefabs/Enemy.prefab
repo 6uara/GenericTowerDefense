@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2298339cdc9cf1849a3849ce9235e4be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.5
-  health: 5
+  data: {fileID: 11400000, guid: fe903f73d7bed544fbee7346b3e0eb83, type: 2}
   drop: {fileID: 331883235190453463, guid: d506cafa46887e3468317eb101ffd5bf, type: 3}
+  health: 20
   rb: {fileID: 4716132596671115920}

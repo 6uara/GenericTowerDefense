@@ -13,13 +13,12 @@ public class Spawner : MonoBehaviour
     private Queue<GameObject> enemyQueue;
     private int enemiesSpawned = 0;
     private float spawnTimer = 0f;
-    private float nextSpawnTime = 0;
 
     private void Start()
     {
         enemyQueue = new Queue<GameObject>();
+        // No es necesario inicializar la cola con un enemigo en el inicio
         enemyQueue.InicializarCola(maxEnemies);
-        enemyQueue.Acolar(enemyPrefabs[0]);
     }
 
     private void Update()
@@ -29,23 +28,23 @@ public class Spawner : MonoBehaviour
             return;
         }
 
-        if (spawnTimer >= nextSpawnTime)
+        spawnTimer += Time.deltaTime;
+
+        if (spawnTimer >= spawnInterval)
         {
             SpawnEnemy();
-
-            float randomInterval = Random.Range(1f, 4f);
-            nextSpawnTime = Time.time + randomInterval;
+            spawnTimer = 0f; // Reiniciar el temporizador de spawn
         }
-        spawnTimer += Time.deltaTime;
     }
 
     private void SpawnEnemy()
     {
-        Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-        GameObject enemyToSpawn = enemyQueue.Desacolar();
-        Instantiate(enemyToSpawn, randomSpawnPoint.position, Quaternion.identity);
-        enemiesSpawned++;
-
-        enemyQueue.Acolar(enemyToSpawn);
+        if (enemiesSpawned < maxEnemies)
+        {
+            Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+            GameObject enemyToSpawn = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+            Instantiate(enemyToSpawn, randomSpawnPoint.position, Quaternion.identity);
+            enemiesSpawned++;
+        }
     }
 }

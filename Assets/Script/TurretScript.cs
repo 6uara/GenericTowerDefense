@@ -9,8 +9,6 @@ public class TurretScript : MonoBehaviour
     [SerializeField]private GameObject projectilePrefab;
     [SerializeField]private Transform firePoint;
 
-    private Stack<GameObject> enemyStack;
-
     private Queue<GameObject> enemyQueue;
 
     private float timer = 2;
@@ -20,12 +18,7 @@ public class TurretScript : MonoBehaviour
 
     private void Start()
     {
-        enemyStack = new Stack<GameObject>();
-
         enemyQueue = new Queue<GameObject>();
-
-        enemyStack.InicializarPila(enemyQuantity);
-
         enemyQueue.InicializarCola(enemyQuantity);
 
         timeUntilFire = 0f;
@@ -35,18 +28,6 @@ public class TurretScript : MonoBehaviour
     private void Update()
     {
         timeUntilFire += Time.deltaTime;
-        //if (!enemyStack.PilaVacia())
-        //{
-        //    if (timeUntilFire >= 1f/timer)
-        //    {
-        //        actualEnemy = enemyStack.Tope();
-        //        if (actualEnemy != null)
-        //        {
-        //            Shoot(actualEnemy.transform);
-        //        }
-        //        timeUntilFire = 0;
-        //    }
-        //}
 
         if (!enemyQueue.ColaVacia())
         {
@@ -73,8 +54,6 @@ public class TurretScript : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            //enemyStack.Apilar(other.gameObject);
-            Debug.Log("Enemigo entró en el rango de la torreta");
             enemyQueue.Acolar(other.gameObject);
         }
     }
@@ -83,7 +62,6 @@ public class TurretScript : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            //enemyStack.Desapilar();
             enemyQueue.Desacolar();
         }
     }

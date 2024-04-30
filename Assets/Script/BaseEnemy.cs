@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMovement : MonoBehaviour
+public class BaseEnemy : MonoBehaviour
 {
+    [SerializeField] private EnemyData data;
+
     [Header("Attributes")]
-    [SerializeField] private float moveSpeed = 2f;
-    [SerializeField] private int health = 5;
     [SerializeField] private GameObject drop;
+    [SerializeField] private int health;
 
     [Header("References")]
     [SerializeField] private Rigidbody2D rb;
@@ -59,7 +60,7 @@ public class EnemyMovement : MonoBehaviour
         else
         {
             Vector2 direction = (target.position - transform.position).normalized;
-            rb.velocity = direction * moveSpeed;
+            rb.velocity = direction * data.Speed;
         }
     }
 
