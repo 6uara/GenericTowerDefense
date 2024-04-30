@@ -17,13 +17,14 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        enemyQueue = new Queue<GameObject>(maxEnemies);
-        enemyQueue.Enqueue(enemyPrefabs[0]);
+        enemyQueue = new Queue<GameObject>();
+        enemyQueue.InicializarCola(maxEnemies);
+        enemyQueue.Acolar(enemyPrefabs[0]);
     }
 
     private void Update()
     {
-        if (enemiesSpawned >= maxEnemies || enemyQueue.Count() == 0)
+        if (enemiesSpawned >= maxEnemies)
         {
             return;
         }
@@ -41,10 +42,10 @@ public class Spawner : MonoBehaviour
     private void SpawnEnemy()
     {
         Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-        GameObject enemyToSpawn = enemyQueue.Dequeue();
+        GameObject enemyToSpawn = enemyQueue.Desacolar();
         Instantiate(enemyToSpawn, randomSpawnPoint.position, Quaternion.identity);
         enemiesSpawned++;
 
-        enemyQueue.Enqueue(enemyToSpawn);
+        enemyQueue.Acolar(enemyToSpawn);
     }
 }

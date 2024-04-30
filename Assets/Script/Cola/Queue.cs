@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Queue<T> : IQueue<T>
 {
@@ -11,18 +12,25 @@ public class Queue<T> : IQueue<T>
 
     public void Acolar(T elemento)
     {
-        if (indice == array.Length - 1)
+        if (inicializado)
         {
-            throw new Exception("La cola está completa");
-        }
+            if (indice == array.Length - 1)
+            {
+                throw new Exception("La cola está completa");
+            }
 
-        for (int i = indice; i > 0; i--)
+            for (int i = indice; i > 0; i--)
+            {
+                array[i] = array[i - 1];
+            }
+
+            array[0] = elemento;
+            indice++;
+        }
+        else
         {
-            array[i] = array[i - 1];
+            throw new Exception("Cola no inicializada");
         }
-
-        array[0] = elemento;
-        indice++;
     }
 
     public bool ColaVacia()
@@ -44,16 +52,26 @@ public class Queue<T> : IQueue<T>
         }
     }
 
-    public void Desacolar()
+    public T Desacolar()
     {
-        if (indice != 0)
+        if (inicializado)
         {
-            array[indice - 1] = default;
-            indice--;
-            throw new Exception("La cola está vacía");
+            if (indice != 0)
+            {
+                array[indice - 1] = default;
+                T res = array[indice - 1];
+                indice--;
+                return res;
+            }
+            else
+            {
+                throw new Exception("La cola está vacía");
+            }
         }
-
-        throw new Exception("La cola está vacía");
+        else
+        {
+            throw new Exception("Cola no inicializada");
+        }
     }
 
     public void InicializarCola(int cantidad)

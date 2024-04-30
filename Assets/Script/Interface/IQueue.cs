@@ -6,7 +6,7 @@ public interface IQueue<T>
 {
     void InicializarCola(int cantidad);
     void Acolar(T elemento);
-    void Desacolar();
+    T Desacolar();
     T Primero();
     bool ColaVacia();
 }
