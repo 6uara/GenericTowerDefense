@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1065332466060333316}
   - component: {fileID: 389500978641544103}
   - component: {fileID: 8835399021054027625}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 6526325123432647372, guid: 1bfc9c77c7c0f9449a116042684167e1, type: 3}
   firePoint: {fileID: 6540392583038423826}
-  fireRate: 1
 --- !u!58 &8835399021054027625
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -147,7 +146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6540392583038423826}
   - component: {fileID: 4943695798325267960}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}

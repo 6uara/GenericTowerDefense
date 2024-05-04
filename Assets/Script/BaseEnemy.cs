@@ -81,9 +81,10 @@ public class BaseEnemy : MonoBehaviour
     {
         Destroy(gameObject);
         randomNum = UnityEngine.Random.Range(1,10);
+        var pos = new Vector3(transform.position.x,transform.position.y,transform.position.z -4);
         if(randomNum < 3)
         {
-          Instantiate(drop,transform.position,transform.rotation);  
+          Instantiate(drop,pos,transform.rotation);  
         }
     }
 

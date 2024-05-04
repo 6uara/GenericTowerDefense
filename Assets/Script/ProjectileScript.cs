@@ -36,8 +36,8 @@ public class ProjectileScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Destroy(gameObject,2f);
             collision.gameObject.GetComponent<BaseEnemy>().TakeDamage(data.Damage);
+            Destroy(gameObject,0.25f);
         }
     }
 }

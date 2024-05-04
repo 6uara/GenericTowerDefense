@@ -48,6 +48,7 @@ public class Spawner : MonoBehaviour
         {
             SpawnEnemy();
             spawnTimer = 0f; // Reiniciar el temporizador de spawn
+            spawnInterval -= 0.1f;
         }
     }
 

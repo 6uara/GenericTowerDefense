@@ -13,6 +13,7 @@ TagManager:
   - Ground
   - Water
   - UI
+  - Drop
   - 
   - 
   - 
@@ -37,8 +38,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Tower
   m_SortingLayers:
   - name: Default
     uniqueID: 0
