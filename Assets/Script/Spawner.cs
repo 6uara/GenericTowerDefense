@@ -11,17 +11,28 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float spawnInterval;
     [SerializeField] private int maxEnemies = 20;
 
+<<<<<<< Updated upstream
     public event Action lastEnemy;
     private Queue<GameObject> enemyQueue;
+=======
+    private Stack enemyStack;
+
+>>>>>>> Stashed changes
     private int enemiesSpawned = 0;
     private float spawnTimer = 0f;
     private float winTimer;
 
     private void Start()
     {
-        enemyQueue = new Queue<GameObject>();
-        // No es necesario inicializar la cola con un enemigo en el inicio
-        enemyQueue.InicializarCola(maxEnemies);
+        enemyStack = new Stack();
+        for (int i = 0; i < maxEnemies; i++)
+        {
+            for (int j = 0; j < 20; j++)
+            {
+                enemyStack.Apilar(enemyPrefabs[0]);
+            }
+        }
+        
     }
 
     private void Update()
@@ -47,10 +58,16 @@ public class Spawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        if (enemiesSpawned < maxEnemies)
+        if (! enemyStack.PilaVacia())
         {
+<<<<<<< Updated upstream
             Transform randomSpawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
             GameObject enemyToSpawn = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Length)];
+=======
+            Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+            GameObject enemyToSpawn = enemyStack.Tope();
+            enemyStack.Desapilar();
+>>>>>>> Stashed changes
             Instantiate(enemyToSpawn, randomSpawnPoint.position, Quaternion.identity);
             enemiesSpawned++;
         }
