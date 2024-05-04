@@ -29,7 +29,7 @@ public class Stack<T> : IStack<T>
         {
             if (indice != 0)
             {
-                array[indice] = default;
+                array[indice-1] = default;
                 indice--;
             }
             else

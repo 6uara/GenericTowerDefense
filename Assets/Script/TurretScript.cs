@@ -9,7 +9,7 @@ public class TurretScript : MonoBehaviour
     [SerializeField]private GameObject projectilePrefab;
     [SerializeField]private Transform firePoint;
 
-    private Queue<GameObject> enemyQueue;
+    private Queue<UnityEngine.GameObject> enemyQueue;
 
     private float timer = 2;
     private float timeUntilFire = 0;

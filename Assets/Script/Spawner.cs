@@ -12,7 +12,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float spawnInterval;
     [SerializeField] private int maxEnemies = 20;
 
-    private Stack enemyStack;
+    private Stack<GameObject> EnemyStack;
 
     public event Action lastEnemy;
     private int enemiesSpawned = 0;
@@ -21,13 +21,11 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        enemyStack = new Stack();
+        EnemyStack = new Stack<GameObject>();
+        EnemyStack.InicializarPila(20);
         for (int i = 0; i < maxEnemies; i++)
         {
-            for (int j = 0; j < 20; j++)
-            {
-                enemyStack.Apilar(enemyPrefabs[0]);
-            }
+                EnemyStack.Apilar(enemyPrefabs[0]);
         }
         
     }
@@ -55,11 +53,11 @@ public class Spawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        if (! enemyStack.PilaVacia())
+        if (! EnemyStack.PilaVacia())
         {
-            Transform randomSpawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
-            GameObject enemyToSpawn = enemyStack.Tope();
-            enemyStack.Desapilar();
+            Transform randomSpawnPoint = spawnPoints[0];
+            GameObject enemyToSpawn = EnemyStack.Tope();
+            EnemyStack.Desapilar();
             Instantiate(enemyToSpawn, randomSpawnPoint.position, Quaternion.identity);
             enemiesSpawned++;
         }
