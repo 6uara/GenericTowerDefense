@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class BaseEnemy : MonoBehaviour
     [Header("References")]
     [SerializeField] private Rigidbody2D rb;
 
+    //public event Action enemyDied;
     private Transform target;
     private int pathIndex = 0;
 
@@ -78,5 +80,15 @@ public class BaseEnemy : MonoBehaviour
     {
         Destroy(gameObject);
         Instantiate(drop,transform.position,transform.rotation);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Castle"))
+        {
+            collision.gameObject.GetComponent<MainCastle>().TakeDamage(5);
+            //enemyDied?.Invoke();
+            Destroy(gameObject);
+        }
     }
 }

@@ -3,51 +3,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.VersionControl;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
-{
-    public static GameManager Instance;
-
-    public GameState State;
-
-    public static event Action<GameState> OnStateChanged;
-    private void Awake()
+    public class GameManager : MonoBehaviour
     {
-        Instance = this;
-    }
+        [SerializeField] private MainCastle castle;
+        [SerializeField] private Spawner enemySpawner;
 
-    void Start()
-    {
-        UpdateGameState(GameState.Menu);
-    }
+        public static GameManager Instance;
 
-    public void UpdateGameState(GameState newState)
-    {
-        State = newState;
-
-        switch (newState)
+        private void Awake()
         {
-            case GameState.Menu:
-                break;
-            case GameState.Level1:
-                break;
-            case GameState.Level2:
-                break;
-            case GameState.Victory:
-                break;
-            case GameState.Lose:
-                break;
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(this);
+            }
         }
 
-     OnStateChanged?.Invoke(newState);
-    }
-}
+        private void OnEnable()
+        {
+            castle.Defeat += Lose; // Suscribirse al evento Defeat del castillo
+            enemySpawner.lastEnemy += Victory;
+        }
 
-public enum GameState
-{
-    Menu,
-    Level1,
-    Level2,
-    Victory,
-    Lose
-}
+        private void OnDisable()
+        {
+            castle.Defeat -= Lose; // Asegurarse de desuscribirse cuando el GameManager se desactive
+            enemySpawner.lastEnemy -= Victory;
+    }
+
+        private void Victory()
+        {
+            TheSceneManager.Instance.LoadNewScene("VictoryScene");
+        }
+
+        private void Lose()
+        {
+            TheSceneManager.Instance.LoadNewScene("LoseScene");
+        }
+    }
+

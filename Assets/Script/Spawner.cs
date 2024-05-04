@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,9 +11,11 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float spawnInterval;
     [SerializeField] private int maxEnemies = 20;
 
+    public event Action lastEnemy;
     private Queue<GameObject> enemyQueue;
     private int enemiesSpawned = 0;
     private float spawnTimer = 0f;
+    private float winTimer;
 
     private void Start()
     {
@@ -25,7 +28,12 @@ public class Spawner : MonoBehaviour
     {
         if (enemiesSpawned >= maxEnemies)
         {
-            return;
+
+           winTimer += Time.deltaTime;
+            if (winTimer > 10f)
+            {
+                lastEnemy?.Invoke();
+            }
         }
 
         spawnTimer += Time.deltaTime;
@@ -41,8 +49,8 @@ public class Spawner : MonoBehaviour
     {
         if (enemiesSpawned < maxEnemies)
         {
-            Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-            GameObject enemyToSpawn = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+            Transform randomSpawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
+            GameObject enemyToSpawn = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Length)];
             Instantiate(enemyToSpawn, randomSpawnPoint.position, Quaternion.identity);
             enemiesSpawned++;
         }
