@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -11,13 +12,9 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float spawnInterval;
     [SerializeField] private int maxEnemies = 20;
 
-<<<<<<< Updated upstream
-    public event Action lastEnemy;
-    private Queue<GameObject> enemyQueue;
-=======
     private Stack enemyStack;
 
->>>>>>> Stashed changes
+    public event Action lastEnemy;
     private int enemiesSpawned = 0;
     private float spawnTimer = 0f;
     private float winTimer;
@@ -60,14 +57,9 @@ public class Spawner : MonoBehaviour
     {
         if (! enemyStack.PilaVacia())
         {
-<<<<<<< Updated upstream
             Transform randomSpawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
-            GameObject enemyToSpawn = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Length)];
-=======
-            Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
             GameObject enemyToSpawn = enemyStack.Tope();
             enemyStack.Desapilar();
->>>>>>> Stashed changes
             Instantiate(enemyToSpawn, randomSpawnPoint.position, Quaternion.identity);
             enemiesSpawned++;
         }
