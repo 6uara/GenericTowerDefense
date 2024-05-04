@@ -17,6 +17,7 @@ public class BaseEnemy : MonoBehaviour
     //public event Action enemyDied;
     private Transform target;
     private int pathIndex = 0;
+    private int randomNum;
 
     private void Start()
     {
@@ -79,7 +80,11 @@ public class BaseEnemy : MonoBehaviour
     public void Die()
     {
         Destroy(gameObject);
-        Instantiate(drop,transform.position,transform.rotation);
+        randomNum = UnityEngine.Random.Range(1,10);
+        if(randomNum < 3)
+        {
+          Instantiate(drop,transform.position,transform.rotation);  
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

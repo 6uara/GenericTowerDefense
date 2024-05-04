@@ -32,8 +32,12 @@ public class PlotScript : MonoBehaviour
         }
         else
         {
-            GameObject towerToBuild = BuildManager.Instance.GetSelectedTower();
-            tower = Instantiate(towerToBuild, transform.position, Quaternion.identity);
+            if(LevelManager.main.available())
+            {
+                GameObject towerToBuild = BuildManager.Instance.GetSelectedTower();
+                tower = Instantiate(towerToBuild, transform.position, Quaternion.identity);
+                LevelManager.main.decrease();
+            }
         }
     }
 }
