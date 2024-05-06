@@ -6,6 +6,8 @@ using UnityEngine;
 public class BaseEnemy : MonoBehaviour
 {
     [SerializeField] private EnemyData data;
+    [SerializeField] private bool isEnemy1;
+    [SerializeField] private bool isEnemy2;
 
     [Header("Attributes")]
     [SerializeField] private GameObject drop;
@@ -21,9 +23,16 @@ public class BaseEnemy : MonoBehaviour
 
     private void Start()
     {
-        if (LevelManager.main.path.Length > 0)
+        if (LevelManager.Instancie.path.Length > 0 && LevelManager.Instancie.path2.Length > 0)
         {
-            target = LevelManager.main.path[pathIndex];
+            if (isEnemy1)
+            {
+                target = LevelManager.Instancie.path[pathIndex];
+            }
+            else
+            {
+                target = LevelManager.Instancie.path2[pathIndex];
+            }
         }
         else
         {
@@ -38,20 +47,41 @@ public class BaseEnemy : MonoBehaviour
             return;
         }
 
-        if (Vector2.Distance(target.position, transform.position) <= 0.1f)
+        if (isEnemy1) 
         {
-            pathIndex++;
+            if (Vector2.Distance(target.position, transform.position) <= 0.1f)
+            {
+                pathIndex++;
 
-            if (pathIndex >= LevelManager.main.path.Length)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            else
-            {
-                target = LevelManager.main.path[pathIndex];
+                if (pathIndex >= LevelManager.Instancie.path.Length)
+                {
+                    Destroy(gameObject);
+                    return;
+                }
+                else
+                {
+                    target = LevelManager.Instancie.path[pathIndex];
+                }
             }
         }
+        else
+        {
+            if (Vector2.Distance(target.position, transform.position) <= 0.1f)
+            {
+                pathIndex++;
+
+                if (pathIndex >= LevelManager.Instancie.path2.Length)
+                {
+                    Destroy(gameObject);
+                    return;
+                }
+                else
+                {
+                    target = LevelManager.Instancie.path2[pathIndex];
+                }
+            }
+        }
+        
     }
 
     private void FixedUpdate()
@@ -80,9 +110,9 @@ public class BaseEnemy : MonoBehaviour
     public void Die()
     {
         Destroy(gameObject);
-        randomNum = UnityEngine.Random.Range(1,10);
+        randomNum = UnityEngine.Random.Range(0,3);
         var pos = new Vector3(transform.position.x,transform.position.y,transform.position.z -4);
-        if(randomNum < 3)
+        if(randomNum == 0)
         {
           Instantiate(drop,pos,transform.rotation);  
         }

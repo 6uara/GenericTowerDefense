@@ -1769,7 +1769,15 @@ MonoBehaviour:
   - {fileID: 2103600449}
   - {fileID: 2080027486}
   - {fileID: 484767085}
+  path2:
+  - {fileID: 1283220390}
+  - {fileID: 1655854326}
+  - {fileID: 1506182453}
+  - {fileID: 2103600449}
+  - {fileID: 2080027486}
+  - {fileID: 484767085}
   StartPoint: {fileID: 1782171432}
+  StartPoint2: {fileID: 1782171432}
   availableTower: 5
 --- !u!4 &425979816
 Transform:

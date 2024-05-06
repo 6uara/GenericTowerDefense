@@ -6,7 +6,7 @@ public class dropSc : MonoBehaviour
 {
     private void OnMouseDown()
     {
-        LevelManager.main.aument();
+        LevelManager.Instancie.aument();
         Destroy(gameObject);
     }
 }
