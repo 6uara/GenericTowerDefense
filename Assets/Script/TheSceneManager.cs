@@ -13,15 +13,15 @@ public class TheSceneManager : MonoBehaviour
         if (Instance != null)
         {
             Destroy(gameObject);
-            return;
         }
-
-        Instance = this;
-        //DontDestroyOnLoad(gameObject);
+        else
+        {
+            Instance = this;
+        }
 
     }
 
-    public void exitGame()
+    public void ExitGame()
     {
         Application.Quit();
     }
