@@ -5,10 +5,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using System;
 
-public class MainCastle : MonoBehaviour
+public class MainCastle : MonoBehaviour, IDamageable
 {
     [SerializeField] private float health = 50;
-
     public event Action Defeat;
 
     public void TakeDamage(int damage)
@@ -17,7 +16,6 @@ public class MainCastle : MonoBehaviour
         if (health <= 0)
         {
             Defeat?.Invoke();
-            //TheSceneManager.Instance.LoadNewScene("LoseScene");
         }
     }
 }
