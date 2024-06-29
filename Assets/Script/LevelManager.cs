@@ -10,6 +10,10 @@ public class LevelManager : MonoBehaviour
     public Transform StartPoint;
     public Transform StartPoint2;
     [SerializeField] private int availableTower;
+
+    private Tree levelTree;
+
+
     private void Awake()
     {
         if (Instancie != null)
@@ -21,6 +25,14 @@ public class LevelManager : MonoBehaviour
             Instancie = this;
         }
     }
+
+    private void Start()
+    {
+        levelTree = new Tree();
+        levelTree.InicilizeTree();
+    }
+
+
 
     public bool available()
     {
