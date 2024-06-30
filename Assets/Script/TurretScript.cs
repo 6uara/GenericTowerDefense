@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+enum TurretColor
+{
+    red = 0,
+    blue = 1
+}
+
 public class TurretScript : MonoBehaviour
 {
     [Header("Shooting Settings")]

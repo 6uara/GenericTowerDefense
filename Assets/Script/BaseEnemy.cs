@@ -8,6 +8,7 @@ public class BaseEnemy : MonoBehaviour
     [SerializeField] private EnemyData data;
     [SerializeField] private bool isEnemy1;
     [SerializeField] private bool isEnemy2;
+    [SerializeField] private bool isEnemy3;
 
     [Header("Attributes")]
     [SerializeField] private GameObject drop;

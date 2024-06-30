@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
+enum ProjectileType
+{
+    white,
+    red,
+    blue
+}
+
 public class ProjectileScript : MonoBehaviour
 {
     [SerializeField] private ProjectileData data;
