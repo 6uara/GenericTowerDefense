@@ -36,7 +36,7 @@ public class Tree : ITree
         root = null;
     }
 
-    public ITree LeftBranc()
+    public ITree LeftBranch()
     {
         return root.leftBranch;
     }
@@ -92,13 +92,13 @@ public class Tree : ITree
 
     public int Minor(ITree a)
     {
-        if (a.LeftBranc().EmptyTree())
+        if (a.LeftBranch().EmptyTree())
         {
             return a.Root();
         }
         else
         {
-            return Minor(a.LeftBranc());
+            return Minor(a.LeftBranch());
         }
     }
 }

@@ -1,7 +1,7 @@
 public interface ITree
 {
     int Root();
-    ITree LeftBranc();
+    ITree LeftBranch();
     ITree RightBranch();
     bool EmptyTree();
     void InicilizeTree();

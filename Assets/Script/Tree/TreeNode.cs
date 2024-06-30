@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class TreeNode : MonoBehaviour
+public class TreeNode
 {
     public int info;
     public ITree leftBranch;
