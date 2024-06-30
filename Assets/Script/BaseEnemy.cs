@@ -10,6 +10,8 @@ public class BaseEnemy : MonoBehaviour
     [SerializeField] private bool isEnemy2;
     [SerializeField] private bool isEnemy3;
 
+    public int Id;
+
     [Header("Attributes")]
     [SerializeField] private GameObject drop;
     [SerializeField] private int health;

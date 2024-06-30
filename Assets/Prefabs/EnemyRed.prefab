@@ -103,6 +103,7 @@ MonoBehaviour:
   isEnemy1: 0
   isEnemy2: 0
   isEnemy3: 1
+  Id: 2
   drop: {fileID: 331883235190453463, guid: d506cafa46887e3468317eb101ffd5bf, type: 3}
   health: 20
   rb: {fileID: 6225548989123213554}

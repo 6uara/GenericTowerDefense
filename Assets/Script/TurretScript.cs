@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEditor;
+using System.Linq;
 
 enum TurretColor
 {
@@ -21,10 +23,12 @@ public class TurretScript : MonoBehaviour
     private float timeUntilFire = 0;
     private int enemyQuantity = 20;
     private GameObject actualEnemy;
+    private List<BaseEnemy> enemyList;
 
     private void Start()
     {
         enemyQueue = new Queue<GameObject>();
+        enemyList = new List<BaseEnemy>();
         enemyQueue.InicializarCola(enemyQuantity);
 
         timeUntilFire = 0f;
@@ -60,7 +64,14 @@ public class TurretScript : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            enemyQueue.Acolar(other.gameObject);
+            enemyList.Add(other.gameObject.GetComponent<BaseEnemy>());
+            Quicksort.Sort(enemyList);
+            for(int i = 0; i < enemyList.Count; i++)
+            {
+                Debug.Log(enemyList[i].gameObject);
+                enemyQueue.Acolar(enemyList[i].gameObject);
+            }
+            //enemyQueue.Acolar(other.gameObject);
         }
     }
 

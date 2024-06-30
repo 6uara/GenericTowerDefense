@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Quicksort : MonoBehaviour
 {
-    public static void Sort(List<Enemies> list)
+    public static void Sort(List<BaseEnemy> list)
     {
         if (list == null || list.Count <= 1)
             return;
@@ -12,7 +12,7 @@ public class Quicksort : MonoBehaviour
         QuickSortAlgorithm(list, 0, list.Count - 1);
     }
 
-    private static void QuickSortAlgorithm(List<Enemies> list, int left, int right)
+    private static void QuickSortAlgorithm(List<BaseEnemy> list, int left, int right)
     {
         if (left < right)
         {
@@ -22,9 +22,9 @@ public class Quicksort : MonoBehaviour
         }
     }
 
-    private static int Partition(List<Enemies> list, int left, int right)
+    private static int Partition(List<BaseEnemy> list, int left, int right)
     {
-        Enemies pivot = list[right];
+        BaseEnemy pivot = list[right];
         int i = left - 1;
 
         for (int j = left; j < right; j++)
@@ -40,9 +40,9 @@ public class Quicksort : MonoBehaviour
         return i + 1;
     }
 
-    private static void Swap(List<Enemies> list, int i, int j)
+    private static void Swap(List<BaseEnemy> list, int i, int j)
     {
-        Enemies temp = list[i];
+        BaseEnemy temp = list[i];
         list[i] = list[j];
         list[j] = temp;
     }

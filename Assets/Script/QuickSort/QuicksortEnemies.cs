@@ -2,19 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemies
-{
-    public int Id { get; set; }
-
-    public Enemies(int id)
-    {
-        Id = id;
-    }
-}
-
 public class QuicksortEnemies : MonoBehaviour
 {
-        private List<Enemies> enemiesIds = new List<Enemies>();
+        private List<BaseEnemy> enemiesIds = new List<BaseEnemy>();
 
         void Start()
         {
