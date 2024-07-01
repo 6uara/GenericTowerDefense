@@ -59,10 +59,8 @@ public class MainMenu : MonoBehaviour
 
     private void DisplayHighestScores(List<Score> scores)
     {
-        // Diccionario para almacenar la puntuación más alta por nivel
         Dictionary<string, int> highestScores = new Dictionary<string, int>();
 
-        // Obtener la puntuación más alta por nivel
         foreach (Score score in scores)
         {
             if (!highestScores.ContainsKey(score.level))
@@ -77,18 +75,12 @@ public class MainMenu : MonoBehaviour
                 }
             }
         }
-
-        // Convertir a lista para ordenar
-        List<int> highestScoresList = new List<int>(highestScores.Values);
-
-        // Ordenar la lista de puntuaciones más altas utilizando Quicksort
-        Quicksort.Sort(highestScoresList);
-
-        // Mostrar las puntuaciones ordenadas en el texto
+        List<KeyValuePair<string, int>> sortedScores = new List<KeyValuePair<string, int>>(highestScores);
+        Quicksort.Sort(sortedScores);
         scoreText.text = "";
-        foreach (var score in highestScoresList)
+        foreach (var pair in sortedScores)
         {
-            scoreText.text += "Highest Score: " + score + "\n";
+            scoreText.text += "Level: " + pair.Key + " - Highest Score: " + pair.Value + "\n";
         }
     }
 }

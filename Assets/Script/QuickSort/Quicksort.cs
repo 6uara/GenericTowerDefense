@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Quicksort : MonoBehaviour
 {
-    public static void Sort(List<int> list)
+    public static void Sort(List<KeyValuePair<string, int>> list)
     {
         if (list == null || list.Count <= 1)
             return;
@@ -12,7 +12,7 @@ public class Quicksort : MonoBehaviour
         QuickSortAlgorithm(list, 0, list.Count - 1);
     }
 
-    private static void QuickSortAlgorithm(List<int> list, int left, int right)
+    private static void QuickSortAlgorithm(List<KeyValuePair<string, int>> list, int left, int right)
     {
         if (left < right)
         {
@@ -22,14 +22,14 @@ public class Quicksort : MonoBehaviour
         }
     }
 
-    private static int Partition(List<int> list, int left, int right)
+    private static int Partition(List<KeyValuePair<string, int>> list, int left, int right)
     {
-        int pivot = list[right];
+        int pivot = list[right].Value;
         int i = left - 1;
 
         for (int j = left; j < right; j++)
         {
-            if (list[j] <= pivot)
+            if (list[j].Value >= pivot)
             {
                 i++;
                 Swap(list, i, j);
@@ -40,9 +40,9 @@ public class Quicksort : MonoBehaviour
         return i + 1;
     }
 
-    private static void Swap(List<int> list, int i, int j)
+    private static void Swap(List<KeyValuePair<string, int>> list, int i, int j)
     {
-        int temp = list[i];
+        KeyValuePair<string, int> temp = list[i];
         list[i] = list[j];
         list[j] = temp;
     }
