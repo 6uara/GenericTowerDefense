@@ -9,6 +9,7 @@ TagManager:
   - SceneManager
   - StartPoint
   - EndPoint
+  - Waypoint
   layers:
   - Default
   - TransparentFX

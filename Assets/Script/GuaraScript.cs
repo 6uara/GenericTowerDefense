@@ -12,12 +12,12 @@ public class GuaraScript : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private GameObject[] waypoints; // Array de Waypoints
+    private GameObject[] waypoints; // Array de Waypoints
     private List<Node> nodes; // List of nodes representing the game map
     private List<Node> path;
 
-    [SerializeField] private Transform start; // Punto de inicio
-    [SerializeField] private Transform end; // Punto final
+    private GameObject start; // Punto de inicio
+    private GameObject end; // Punto final
 
     [SerializeField] private Node startPoint; // Punto de inicio
     [SerializeField] private Node endPoint; // Punto final
@@ -26,6 +26,8 @@ public class GuaraScript : MonoBehaviour
 
     void Start()
     {
+        start = GameObject.FindGameObjectWithTag("StartPoint");
+        end = GameObject.FindGameObjectWithTag("EndPoint");
         startPoint.position = start.transform.position;
         endPoint.position = end.transform.position;
         nodes = CreateNodesFromMap(); // Crea nodos a partir de waypoints provistos
@@ -54,6 +56,7 @@ public class GuaraScript : MonoBehaviour
     {
         List<Node> nodes = new List<Node>(); // crea una lista de nodos
         nodes.Add(startPoint); // asigna primero el starting point
+        waypoints = GameObject.FindGameObjectsWithTag("Waypoint");// encuentra todos los waypoints
         foreach (GameObject way in waypoints) // recorre los waypoints
         {
             Node w = new Node(way.transform.position); // crea un nodo a partir del waypoint actual
@@ -108,8 +111,8 @@ public class GuaraScript : MonoBehaviour
     }
     public Node GetClosestNode(List<Node> unvisited,Node current)
     {
-        Node saved = current; // nodo a devolver
-        float MinDistance = 99999; // variable para sacar el mas cercano
+        Node saved = null; // nodo a devolver
+        float MinDistance = float.MaxValue; // variable para sacar el mas cercano
         foreach (Node node in unvisited) //recorrer todos los nodos
         {
             if(GetDistance(current,node) < MinDistance) //si esta mas cerca que el mas cercano registrado
