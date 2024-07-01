@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GuaraScript : MonoBehaviour
@@ -9,6 +10,10 @@ public class GuaraScript : MonoBehaviour
 
     private int currentWaypointIndex = 0; // Index of the current waypoint
     private List<Node> nodes; // List of nodes representing the game map
+    private List<Node> path;
+
+    private Vector3 startPoint;
+    private Vector3 endPoint;
 
     void Start()
     {
@@ -16,11 +21,10 @@ public class GuaraScript : MonoBehaviour
         nodes = CreateNodesFromMap(); // Implement this function to create nodes based on your map
 
         // Find the shortest path using Dijkstra's algorithm
-        //path = FindShortestPath(startPoint.position, endPoint.position);
+        path = FindShortestPath(startPoint, endPoint);
     }
     void Update()
     {
-        /*
         if (path != null && path.Count > 0)
         {
             // Move towards the next node in the path
@@ -39,7 +43,6 @@ public class GuaraScript : MonoBehaviour
             // Enemy reached the end (or failed to find a path)
             Destroy(gameObject);
         }
-        */
     }
     private List<Node> CreateNodesFromMap()
     {
@@ -53,42 +56,32 @@ public class GuaraScript : MonoBehaviour
     private List<Node> FindShortestPath(Vector3 startPosition, Vector3 endPosition)
     {
         // Dijkstra's Algorithm Implementation
-        List<Node> unvisited = new List<Node>(nodes); // All nodes initially unvisited
-        Dictionary<Node, float> distances = new Dictionary<Node, float>(); // Distances from start to each node
-
-        // Initialize distances (all positive infinity except start)
+        List<Node> unvisited = new List<Node>(nodes); // Todos los nodos no visitados
+        Dictionary<Node, float> distances = new Dictionary<Node, float>(); // Distancias entre nodo y nodo
         foreach (Node node in nodes)
         {
-            distances[node] = float.PositiveInfinity;
+            distances[node] = float.PositiveInfinity; // crea una distancia positiva para todos los nodos
         }
-        distances[GetNodeFromPosition(startPosition)] = 0f; // Start node distance is 0
-        /*
-        while (unvisited.Count > 0)
+        distances[GetNodeFromPosition(startPosition)] = 0f; // El nodo comienzo tiene distancia 0
+        while (unvisited.Count > 0) //mientras la cantidad de nodos no visitados sea >0
         {
-            // Find unvisited node with the shortest known distance
-            Node current = unvisited.OrderBy(node => distances[node]).FirstOrDefault();
-            unvisited.Remove(current);
+            Node current = unvisited.OrderBy(node => distances[node]).FirstOrDefault(); //encontrar el nodo no visitado mas cercano
+            unvisited.Remove(current); // Lo remueve de la lista
 
-            if (current == GetNodeFromPosition(endPosition))
+            if (current == GetNodeFromPosition(endPosition)) // si el nodo actual es el nodo final
             {
-                // Reached the end, reconstruct the path
-                return ReconstructPath(current);
+                return ReconstructPath(current); // rehacer el camino, aca deberia destruirse
             }
 
-            foreach (Node neighbor in current.neighbors)
+            foreach (Node neighbor in current.neighbors) // por cada nodo en current.neighbors
             {
-                // Calculate tentative distance to neighbor
-                float tentativeDistance = distances[current] + GetDistance(current, neighbor);
-
-                // Update neighbor's distance if tentative distance is shorter
-                if (tentativeDistance < distances[neighbor])
+                float tentativeDistance = distances[current] + GetDistance(current, neighbor); // calcular la distancia aproximada al nodo
+                if (tentativeDistance < distances[neighbor])// si la distancia aproximada es mas corta actualizarla
                 {
                     distances[neighbor] = tentativeDistance;
                 }
             }
         }
-        */
-        // No path found
         return null;
     }
     private float GetDistance(Node node1, Node node2)
