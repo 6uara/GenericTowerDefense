@@ -24,19 +24,55 @@ public class PlotScript : MonoBehaviour
         sr.color = startColor;
     }
 
-    private void OnMouseDown()
+    //private void OnMouseDown()
+    //{
+    //    if (tower != null)
+    //    {
+    //        return;
+    //    }
+    //    else
+    //    {
+    //        if(LevelManager.Instancie.available())
+    //        {
+    //            GameObject towerToBuild = BuildManager.Instance.GetSelectedTower();
+    //            tower = Instantiate(towerToBuild, transform.position, Quaternion.identity);
+    //            LevelManager.Instancie.decrease();
+    //        }
+    //    }
+    //}
+    private void OnMouseOver()
     {
-        if (tower != null)
+        if (Input.GetButtonDown("Fire1"))
         {
-            return;
-        }
-        else
-        {
-            if(LevelManager.Instancie.available())
+            if (tower != null)
             {
-                GameObject towerToBuild = BuildManager.Instance.GetSelectedTower();
-                tower = Instantiate(towerToBuild, transform.position, Quaternion.identity);
-                LevelManager.Instancie.decrease();
+                return;
+            }
+            else
+            {
+                if (LevelManager.Instancie.available())
+                {
+                    GameObject towerToBuild = BuildManager.Instance.GetSelectedTower(0);
+                    tower = Instantiate(towerToBuild, transform.position, Quaternion.identity);
+                    LevelManager.Instancie.decrease();
+                }
+            }
+        }
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+            if (tower != null)
+            {
+                return;
+            }
+            else
+            {
+                if (LevelManager.Instancie.available())
+                {
+                    GameObject towerToBuild = BuildManager.Instance.GetSelectedTower(1);
+                    tower = Instantiate(towerToBuild, transform.position, Quaternion.identity);
+                    LevelManager.Instancie.decrease();
+                }
             }
         }
     }

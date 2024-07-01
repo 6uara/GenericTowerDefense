@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3062761185872926475}
   - component: {fileID: 5810723362195716413}
-  - component: {fileID: 2447369764796408303}
   - component: {fileID: 6225548989123213554}
   - component: {fileID: 3167370625654106501}
+  - component: {fileID: 2447369764796408303}
   m_Layer: 0
   m_Name: EnemyRed
   m_TagString: Enemy
@@ -87,26 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2447369764796408303
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7948772082027450509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2298339cdc9cf1849a3849ce9235e4be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: fe903f73d7bed544fbee7346b3e0eb83, type: 2}
-  isEnemy1: 0
-  isEnemy2: 0
-  isEnemy3: 1
-  Id: 2
-  drop: {fileID: 331883235190453463, guid: d506cafa46887e3468317eb101ffd5bf, type: 3}
-  health: 20
-  rb: {fileID: 6225548989123213554}
 --- !u!50 &6225548989123213554
 Rigidbody2D:
   serializedVersion: 4
@@ -179,3 +159,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16957942, y: 0.1596286}
   m_EdgeRadius: 0
+--- !u!114 &2447369764796408303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7948772082027450509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2298339cdc9cf1849a3849ce9235e4be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: fe903f73d7bed544fbee7346b3e0eb83, type: 2}
+  isEnemy1: 0
+  isEnemy2: 0
+  isEnemy3: 1
+  Id: 2
+  drop: {fileID: 331883235190453463, guid: d506cafa46887e3468317eb101ffd5bf, type: 3}
+  health: 20
+  rb: {fileID: 6225548989123213554}

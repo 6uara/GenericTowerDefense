@@ -7,7 +7,6 @@ public class BuildManager : MonoBehaviour
     public static BuildManager Instance;
 
     [SerializeField] private GameObject[] towerPrefabs;
-    private int selectedTower = 0;
 
     private void Awake()
     {
@@ -20,7 +19,7 @@ public class BuildManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public GameObject GetSelectedTower()
+    public GameObject GetSelectedTower(int selectedTower)
     {
         return towerPrefabs[selectedTower];
     }

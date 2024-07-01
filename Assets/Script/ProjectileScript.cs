@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-enum ProjectileType
-{
-    white,
-    red,
-    blue
-}
-
 public class ProjectileScript : MonoBehaviour
 {
     [SerializeField] private ProjectileData data;
@@ -17,6 +10,7 @@ public class ProjectileScript : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     
     private Transform target;
+    [SerializeField] private int Id;
 
     private void Start()
     {
@@ -43,8 +37,15 @@ public class ProjectileScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<BaseEnemy>().TakeDamage(data.Damage);
-            Destroy(gameObject,0.25f);
+            if(collision.gameObject.GetComponent<BaseEnemy>().Id == Id)
+            {
+                collision.gameObject.GetComponent<BaseEnemy>().TakeDamage(data.Damage * 2);
+            }
+            else
+            {
+                collision.gameObject.GetComponent<BaseEnemy>().TakeDamage(data.Damage);
+            }
+            Destroy(gameObject);
         }
     }
 }

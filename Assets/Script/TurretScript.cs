@@ -58,31 +58,30 @@ public class TurretScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy") && IsMyType(other.gameObject.GetComponent<BaseEnemy>().Id))
+        if (other.CompareTag("Enemy"))
         {
-            enemyList.Add(other.gameObject.GetComponent<BaseEnemy>());
-            Quicksort.Sort(enemyList);
-            for(int i = 0; i < enemyList.Count; i++)
-            {
-                Debug.Log(enemyList.Count);
+            //enemyList.Add(other.gameObject.GetComponent<BaseEnemy>());
+            //Quicksort.Sort(enemyList);
+            //for(int i = 0; i < enemyList.Count; i++)
+            //{
+            //    Debug.Log(enemyList.Count);
              
-                enemyQueue.Acolar(enemyList[i].gameObject);
+            //    enemyQueue.Acolar(enemyList[i].gameObject);
                 
-            }
-            //enemyQueue.Acolar(other.gameObject);
+            //}
+            enemyQueue.Acolar(other.gameObject);
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy") && IsMyType(other.gameObject.GetComponent<BaseEnemy>().Id))
+        if (other.CompareTag("Enemy"))
         {
             enemyList.Remove(other.gameObject.GetComponent<BaseEnemy>());
 
-            Debug.Log(enemyList.Count);
 
             enemyQueue.Desacolar();
-            Debug.Log(enemyQueue.Primero());
+
 
 
         }

@@ -99,8 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64c663e48b03a7d48ac72a920598a0cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 6526325123432647372, guid: 1bfc9c77c7c0f9449a116042684167e1, type: 3}
+  projectilePrefab: {fileID: 6526325123432647372, guid: e4bd1c59e48cdea43af59b22116a4e68, type: 3}
   firePoint: {fileID: 6540392583038423826}
+  Id: 0
 --- !u!58 &8835399021054027625
 CircleCollider2D:
   m_ObjectHideFlags: 0
