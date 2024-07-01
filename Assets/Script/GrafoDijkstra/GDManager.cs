@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GDManager : MonoBehaviour
 {
-    public Grafo grafo = new Grafo();
+    public Grafo grafo;
 
     public static GDManager Instance;
 
@@ -25,6 +25,7 @@ public class GDManager : MonoBehaviour
 
     void InitializeGraph()
     {
+        grafo = new Grafo();
         grafo.InicializarGrafo();//Inicializa el Grafo
 
         GameObject[] waypoints = GameObject.FindGameObjectsWithTag("Waypoint");//Agarra todos los GameObject con Tag "Waypoint" y los añade como vertices
@@ -53,8 +54,6 @@ public class GDManager : MonoBehaviour
 
     bool CheckEdge(GameObject v1, GameObject v2)
     {
-        // Placeholder method to check if there's an edge between v1 and v2.
-        // Example: check if v1 and v2 are within a certain distance (pathfinding range).
         float distance = Vector3.Distance(v1.transform.position, v2.transform.position);
         if (distance <= 5f) // Example: if within 5 units
         {
@@ -65,8 +64,6 @@ public class GDManager : MonoBehaviour
 
     int CalculateEdgeWeight(GameObject v1, GameObject v2)
     {
-        // Placeholder method to calculate the weight or distance of an edge between v1 and v2.
-        // Example: use actual distance between waypoints as edge weight.
         return (int)Vector3.Distance(v1.transform.position, v2.transform.position);
     }
 }

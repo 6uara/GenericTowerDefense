@@ -4,23 +4,21 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    private GDManager gdman;
     public GameObject startWaypoint; // Starting waypoint
     public GameObject goalWaypoint; // End waypoint
     public float movementSpeed = 2;
     
     void Start()
     {
-        gdman = GDManager.Instance;
         CalculatePath();// Calcula el camino asumiendo que Start y End ya estan seteados
     }
 
     void CalculatePath()
     {
-        Dijkstra.Dijks(gdman.grafo, startWaypoint);//Usa Dijkstra para encontrar el camino mas corto
+        Dijkstra.Instance.Dijks(GDManager.Instance.grafo, startWaypoint);//Usa Dijkstra para encontrar el camino mas corto
 
         // Retrieve the calculated path from start to goal waypoints
-        string[] pathNodes = Dijkstra.nodos; // Consigue el camino generado
+        string[] pathNodes = Dijkstra.Instance.nodos; // Consigue el camino generado
         if (pathNodes != null && pathNodes.Length > 0)
         {
             GameObject[] pathWaypoints = new GameObject[pathNodes.Length];// Convert pathNodes to GameObjects for movement
@@ -28,23 +26,24 @@ public class EnemyMovement : MonoBehaviour
             {
                 pathWaypoints[i] = GameObject.Find(pathNodes[i]);// Assuming pathNodes[i] is the name of the waypoint GameObject
             }
-            StartCoroutine(MoveAlongPath(pathWaypoints));//mueve al enemigo en el camino
+            MoveAlongPath(pathWaypoints);//mueve al enemigo en el camino
         }
     }
 
-    IEnumerator MoveAlongPath(GameObject[] waypoints)
+    public void MoveAlongPath(GameObject[] waypoints)
     {
         foreach (GameObject waypoint in waypoints)
         {
-            Vector3 targetPosition = waypoint.transform.position;//mueve al enemigo al sig punto
-            while (transform.position != targetPosition)
+            if( waypoint != null)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * movementSpeed);
-                yield return null;
+                Vector3 targetPosition = waypoint.transform.position;//mueve al enemigo al sig punto
+                while (transform.position != targetPosition)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * movementSpeed);
+                }
             }
-            yield return new WaitForSeconds(0.5f); // Delay entre puntos
         }
-        EnemyReachedGoal();//llego al final
+        //EnemyReachedGoal();//llego al final
     }
 
     void EnemyReachedGoal()

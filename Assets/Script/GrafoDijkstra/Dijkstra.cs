@@ -2,14 +2,28 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security.Principal;
 using UnityEngine;
 
-public class Dijkstra
+public class Dijkstra :MonoBehaviour
 {
-    public static int[] distance;
-    public static string[] nodos;
+    public int[] distance;
+    public string[] nodos;
 
-    private static int MinimumDistance(int[] distance, bool[] shortestPathTreeSet, int verticesCount)
+    public static Dijkstra Instance;
+
+    private void Awake() 
+    {
+        if(Instance != null)
+        {
+            Destroy(this);
+        }else{
+            Instance = this;
+        }
+    }
+
+    private int MinimumDistance(int[] distance, bool[] shortestPathTreeSet, int verticesCount)
     {
         int min = int.MaxValue;
         int minIndex = 0;
@@ -26,18 +40,14 @@ public class Dijkstra
         return minIndex;
     }
 
-    public static void Dijks(Grafo grafo, GameObject source)
+    public void Dijks(Grafo grafo, GameObject source)
     {
         int verticesCount = grafo.cantNodos;
-        Debug.Log("Cantidad de nodos en el grafo: " + verticesCount);
-        
-        int sourceIndex = grafo.Vert2Indice(source); // Convert GameObject source to its corresponding index in Etiqs array
-        Debug.Log("Valor del source index: " + sourceIndex);
+        int sourceIndex = 0;
+        //int sourceIndex = grafo.Vert2Indice(source); // Convert GameObject source to its corresponding index in Etiqs array
 
         int[,] graph = grafo.MAdy;// Get adjacency matrix from Grafo
-
         distance = new int[verticesCount];// Initialize distances and path tracking arrays
-
         bool[] shortestPathTreeSet = new bool[verticesCount];
         GameObject[] nodos1 = new GameObject[verticesCount];
         GameObject[] nodos2 = new GameObject[verticesCount];
@@ -47,7 +57,7 @@ public class Dijkstra
             shortestPathTreeSet[i] = false;
             nodos1[i] = nodos2[i] = null;
         }
-        //print("Valor del source index: " +sourceIndex);
+
         distance[sourceIndex] = 0;// Distance to source vertex is 0
         nodos1[sourceIndex] = nodos2[sourceIndex] = grafo.Etiqs[sourceIndex];
         for (int count = 0; count < verticesCount - 1; ++count)// Find shortest path for all vertices

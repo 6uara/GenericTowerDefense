@@ -166,12 +166,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7388308315708835632}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a80440c6696d44492f51b652a88c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gdman: {fileID: 5845189954029569738, guid: 56f447f2f4013db49b3cd80706c42982, type: 3}
   startWaypoint: {fileID: 5806087455943746438, guid: e11989aa82a3f2b4eb9a78a1ac0e6c2a, type: 3}
   goalWaypoint: {fileID: 8027591716853957528, guid: 6781f54aa427b91449d31b6a8b707953, type: 3}
   movementSpeed: 2

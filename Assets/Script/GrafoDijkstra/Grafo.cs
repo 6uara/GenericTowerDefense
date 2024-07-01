@@ -26,7 +26,6 @@ public class Grafo : MonoBehaviour,IGrafo
             MAdy[i, cantNodos] = 0;
         }
         cantNodos++;
-        print(cantNodos);
     }
     public void EliminarVertice(GameObject v)
     {
@@ -47,20 +46,16 @@ public class Grafo : MonoBehaviour,IGrafo
     }
     public int Vert2Indice(GameObject v)
     {
-        int i = cantNodos - 1;
-        while (i >= 0)
+        for (int i = 0; i < cantNodos; i++)
         {
-            //print(Etiqs[i] != null && Etiqs[i] == v);
-            if(Etiqs[i] != null && Etiqs[i] == v)
+            if (Etiqs[i] != null && Etiqs[i] == v)
             {
+                //Debug.Log("Found GameObject: " + v.name + " at index: " + i);
                 return i;
-            }else{
-                i--; 
             }
-            
         }
-
-        return i;
+        //Debug.LogError("GameObject: " + v.name + " not found in the graph.");
+        return -1; // Return -1 if the GameObject is not found
     }
     public void AgregarArista(int id, GameObject v1, GameObject v2, int peso)
     {
