@@ -4,12 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
-
-enum TurretColor
-{
-    red = 0,
-    blue = 1
-}
+using UnityEngine.Rendering;
 
 public class TurretScript : MonoBehaviour
 {
@@ -24,6 +19,7 @@ public class TurretScript : MonoBehaviour
     private int enemyQuantity = 20;
     private GameObject actualEnemy;
     private List<BaseEnemy> enemyList;
+    [SerializeField] private int Id;
 
     private void Start()
     {
@@ -62,14 +58,16 @@ public class TurretScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") && IsMyType(other.gameObject.GetComponent<BaseEnemy>().Id))
         {
             enemyList.Add(other.gameObject.GetComponent<BaseEnemy>());
             Quicksort.Sort(enemyList);
             for(int i = 0; i < enemyList.Count; i++)
             {
-                Debug.Log(enemyList[i].gameObject);
+                Debug.Log(enemyList.Count);
+             
                 enemyQueue.Acolar(enemyList[i].gameObject);
+                
             }
             //enemyQueue.Acolar(other.gameObject);
         }
@@ -77,9 +75,28 @@ public class TurretScript : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") && IsMyType(other.gameObject.GetComponent<BaseEnemy>().Id))
         {
+            enemyList.Remove(other.gameObject.GetComponent<BaseEnemy>());
+
+            Debug.Log(enemyList.Count);
+
             enemyQueue.Desacolar();
+            Debug.Log(enemyQueue.Primero());
+
+
+        }
+    }
+
+    private bool IsMyType(int enemyId)
+    {
+        if(enemyId == Id)
+        {
+            return true;
+        }
+        else 
+        { 
+            return false;
         }
     }
 }

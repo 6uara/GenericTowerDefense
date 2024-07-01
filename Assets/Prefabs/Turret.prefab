@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 6526325123432647372, guid: 1bfc9c77c7c0f9449a116042684167e1, type: 3}
   firePoint: {fileID: 6540392583038423826}
+  Id: 0
 --- !u!58 &8835399021054027625
 CircleCollider2D:
   m_ObjectHideFlags: 0
