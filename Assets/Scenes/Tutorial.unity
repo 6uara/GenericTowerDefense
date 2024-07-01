@@ -1847,7 +1847,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerPrefabs:
-  - {fileID: 751146448113300482, guid: 6ef68e6d4b0a9204ea95061c81d24ce6, type: 3}
+  - {fileID: 751146448113300482, guid: efa81e1c5323874478ed456649e5f2dc, type: 3}
+  - {fileID: 751146448113300482, guid: 27f298131208b4944985cec7fdf963bc, type: 3}
 --- !u!4 &448013452 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3740955122949346704, guid: f8d2c10c391768d42a08eeff695bdf26, type: 3}
@@ -6534,6 +6535,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 7388308315708835632, guid: ab96c73eff1216f448a353c112e1c414, type: 3}
+  - {fileID: 7388308315708835632, guid: 3d4fd2c9baecc5844bf0fbee0f34d459, type: 3}
   spawnPoints:
   - {fileID: 1642757747}
   spawnInterval: 3

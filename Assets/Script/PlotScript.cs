@@ -58,7 +58,6 @@ public class PlotScript : MonoBehaviour
                 }
             }
         }
-
         if (Input.GetButtonDown("Fire2"))
         {
             if (tower != null)

@@ -25,7 +25,8 @@ public class Spawner : MonoBehaviour
         EnemyStack.InicializarPila(20);
         for (int i = 0; i < maxEnemies; i++)
         {
-                EnemyStack.Apilar(enemyPrefabs[0]);
+            int rand = UnityEngine.Random.Range(0, enemyPrefabs.Length);
+            EnemyStack.Apilar(enemyPrefabs[rand]);
         }
         
     }
