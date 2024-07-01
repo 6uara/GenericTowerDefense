@@ -1916,7 +1916,7 @@ GameObject:
   - component: {fileID: 484767085}
   m_Layer: 0
   m_Name: FinalPoint
-  m_TagString: Untagged
+  m_TagString: EndPoint
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6918,7 +6918,7 @@ GameObject:
   - component: {fileID: 1782171432}
   m_Layer: 0
   m_Name: StartingPoint
-  m_TagString: Untagged
+  m_TagString: StartPoint
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

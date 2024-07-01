@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4716132596671115920}
   - component: {fileID: 3140310692035863027}
   - component: {fileID: 350306992603013766}
+  - component: {fileID: -4971056223199039240}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -178,3 +179,20 @@ MonoBehaviour:
   drop: {fileID: 331883235190453463, guid: d506cafa46887e3468317eb101ffd5bf, type: 3}
   health: 20
   rb: {fileID: 4716132596671115920}
+--- !u!114 &-4971056223199039240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7388308315708835632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab93126b030dad041922ae569dfb9a83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drop: {fileID: 0}
+  health: 0
+  speed: 2
+  rb: {fileID: 0}
+  waypoints: []
