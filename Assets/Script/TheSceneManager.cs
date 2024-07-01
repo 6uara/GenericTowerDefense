@@ -20,6 +20,7 @@ public class TheSceneManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
+        Application.targetFrameRate = 300;
     }
 
     private void Start()

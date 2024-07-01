@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Quicksort : MonoBehaviour
 {
-    public static void Sort(List<Enemies> list)
+    public static void Sort(List<int> list)
     {
         if (list == null || list.Count <= 1)
             return;
@@ -12,7 +11,7 @@ public class Quicksort : MonoBehaviour
         QuickSortAlgorithm(list, 0, list.Count - 1);
     }
 
-    private static void QuickSortAlgorithm(List<Enemies> list, int left, int right)
+    private static void QuickSortAlgorithm(List<int> list, int left, int right)
     {
         if (left < right)
         {
@@ -22,14 +21,14 @@ public class Quicksort : MonoBehaviour
         }
     }
 
-    private static int Partition(List<Enemies> list, int left, int right)
+    private static int Partition(List<int> list, int left, int right)
     {
-        Enemies pivot = list[right];
+        int pivot = list[right];
         int i = left - 1;
 
         for (int j = left; j < right; j++)
         {
-            if (list[j].Id <= pivot.Id)
+            if (list[j] <= pivot)
             {
                 i++;
                 Swap(list, i, j);
@@ -40,9 +39,9 @@ public class Quicksort : MonoBehaviour
         return i + 1;
     }
 
-    private static void Swap(List<Enemies> list, int i, int j)
+    private static void Swap(List<int> list, int i, int j)
     {
-        Enemies temp = list[i];
+        int temp = list[i];
         list[i] = list[j];
         list[j] = temp;
     }

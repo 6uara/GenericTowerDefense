@@ -402,7 +402,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 882904689274883771, guid: 6eea6da79c5840e4f9bc7040e833ad4c, type: 3}
         m_TargetAssemblyTypeName: TheSceneManager, Assembly-CSharp
         m_MethodName: LoadNewScene
         m_Mode: 5
