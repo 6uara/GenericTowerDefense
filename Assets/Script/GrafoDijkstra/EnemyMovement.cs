@@ -4,36 +4,31 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public Grafo grafo; // Instance of the graph manager
-    public GameObject startWaypoint; // Starting waypoint for the enemy
-    public GameObject goalWaypoint; // Goal waypoint for the enemy
+    private GDManager gdman;
+    public GameObject startWaypoint; // Starting waypoint
+    public GameObject goalWaypoint; // End waypoint
     public float movementSpeed = 2;
     
     void Start()
     {
-        // Assuming grafo and startWaypoint/goalWaypoint are initialized or set elsewhere
-        CalculatePath();
+        gdman = GDManager.Instance;
+        CalculatePath();// Calcula el camino asumiendo que Start y End ya estan seteados
     }
 
     void CalculatePath()
     {
-        // Use Dijkstra's algorithm to find the shortest path from startWaypoint to goalWaypoint
-        Dijkstra.Dijks(grafo, startWaypoint);
+        Dijkstra.Dijks(gdman.grafo, startWaypoint);//Usa Dijkstra para encontrar el camino mas corto
 
         // Retrieve the calculated path from start to goal waypoints
-        string[] pathNodes = Dijkstra.nodos;
+        string[] pathNodes = Dijkstra.nodos; // Consigue el camino generado
         if (pathNodes != null && pathNodes.Length > 0)
         {
-            // Convert pathNodes to GameObjects for movement
-            GameObject[] pathWaypoints = new GameObject[pathNodes.Length];
+            GameObject[] pathWaypoints = new GameObject[pathNodes.Length];// Convert pathNodes to GameObjects for movement
             for (int i = 0; i < pathNodes.Length; i++)
             {
-                // Assuming pathNodes[i] is the name of the waypoint GameObject
-                pathWaypoints[i] = GameObject.Find(pathNodes[i]);
+                pathWaypoints[i] = GameObject.Find(pathNodes[i]);// Assuming pathNodes[i] is the name of the waypoint GameObject
             }
-
-            // Start enemy movement along the path
-            StartCoroutine(MoveAlongPath(pathWaypoints));
+            StartCoroutine(MoveAlongPath(pathWaypoints));//mueve al enemigo en el camino
         }
     }
 
@@ -41,23 +36,19 @@ public class EnemyMovement : MonoBehaviour
     {
         foreach (GameObject waypoint in waypoints)
         {
-            // Move enemy to the next waypoint
-            Vector3 targetPosition = waypoint.transform.position;
+            Vector3 targetPosition = waypoint.transform.position;//mueve al enemigo al sig punto
             while (transform.position != targetPosition)
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * movementSpeed);
                 yield return null;
             }
-            yield return new WaitForSeconds(0.5f); // Optional delay between waypoints
+            yield return new WaitForSeconds(0.5f); // Delay entre puntos
         }
-
-        // Reached the goal waypoint, handle enemy reaching destination
-        EnemyReachedGoal();
+        EnemyReachedGoal();//llego al final
     }
 
     void EnemyReachedGoal()
     {
-        // Implement behavior when the enemy reaches the goal waypoint (e.g., attack, destroy, etc.)
-        Destroy(gameObject); // Example: destroy the enemy GameObject
+        Destroy(gameObject); // Muere
     }
 }

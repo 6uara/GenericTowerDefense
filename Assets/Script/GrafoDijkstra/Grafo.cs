@@ -17,7 +17,6 @@ public class Grafo : MonoBehaviour,IGrafo
         Etiqs = new GameObject[n];
         cantNodos = 0;
     }
-
     public void AgregarVertice(GameObject v)
     {
         Etiqs[cantNodos] = v;
@@ -27,8 +26,8 @@ public class Grafo : MonoBehaviour,IGrafo
             MAdy[i, cantNodos] = 0;
         }
         cantNodos++;
+        //print(cantNodos);
     }
-
     public void EliminarVertice(GameObject v)
     {
         int ind = Vert2Indice(v);
@@ -46,30 +45,23 @@ public class Grafo : MonoBehaviour,IGrafo
         Etiqs[ind] = Etiqs[cantNodos - 1];
         cantNodos--;
     }
-
     public int Vert2Indice(GameObject v)
     {
         int i = cantNodos - 1;
-        while (i >= 0 && Etiqs[i] != v)
+        while (i >= 0)
         {
-            i--;
+            if(Etiqs[i] != null && Etiqs[i] == v)
+            {
+                return i;
+            }else{
+                if(i>0){
+                    i--;
+                }
+            }
         }
 
         return i;
     }
-    /*
-    public ConjuntoTDA Vertices()
-    {
-        ConjuntoTDA Vert = new ConjuntoLD();
-        Vert.InicializarConjunto();
-        for (int i = 0; i < cantNodos; i++)
-        {
-            Vert.Agregar(Etiqs[i]);
-        }
-        return Vert;
-    }
-    */
-
     public void AgregarArista(int id, GameObject v1, GameObject v2, int peso)
     {
         int o = Vert2Indice(v1);
@@ -77,7 +69,6 @@ public class Grafo : MonoBehaviour,IGrafo
         MAdy[o, d] = peso;
         MId[o, d] = id;
     }
-
     public void EliminarArista(GameObject v1, GameObject v2)
     {
         int o = Vert2Indice(v1);
@@ -85,14 +76,12 @@ public class Grafo : MonoBehaviour,IGrafo
         MAdy[o, d] = 0;
         MId[o, d] = 0;
     }
-
     public bool ExisteArista(GameObject v1, GameObject v2)
     {
         int o = Vert2Indice(v1);
         int d = Vert2Indice(v2);
         return MAdy[o, d] != 0;
     }
-
     public int PesoArista(GameObject v1, GameObject v2)
     {
         int o = Vert2Indice(v1);

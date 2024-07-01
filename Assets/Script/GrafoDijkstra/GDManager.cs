@@ -4,7 +4,19 @@ using UnityEngine;
 
 public class GDManager : MonoBehaviour
 {
-    public Grafo grafo;
+    public Grafo grafo = new Grafo();
+
+    public static GDManager Instance;
+
+    private void Awake() 
+    {
+        if(Instance != null)
+        {
+            Destroy(this);
+        }else{
+            Instance = this;
+        }
+    }
 
     void Start()
     {
@@ -13,18 +25,14 @@ public class GDManager : MonoBehaviour
 
     void InitializeGraph()
     {
-        // Initialize the graph instance
-        grafo.InicializarGrafo();
+        grafo.InicializarGrafo();//Inicializa el Grafo
 
-        // Find all GameObjects with tag "Waypoint" and add them as vertices
-        GameObject[] waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
+        GameObject[] waypoints = GameObject.FindGameObjectsWithTag("Waypoint");//Agarra todos los GameObject con Tag "Waypoint" y los añade como vertices
         foreach (GameObject waypoint in waypoints)
         {
             grafo.AgregarVertice(waypoint);
         }
-
-        // Add edges between waypoints based on adjacency or proximity
-        for (int i = 0; i < grafo.cantNodos; i++)
+        for (int i = 0; i < grafo.cantNodos; i++)// Añade las aristas a los waypoints basado en proximidad (revisar)
         {
             GameObject v1 = grafo.Etiqs[i];
             for (int j = 0; j < grafo.cantNodos; j++)
@@ -32,14 +40,11 @@ public class GDManager : MonoBehaviour
                 GameObject v2 = grafo.Etiqs[j];
                 if (v1 != v2 && v1.CompareTag("Waypoint") && v2.CompareTag("Waypoint"))
                 {
-                    // Check if there's a direct connection (edge) between v1 and v2
-                    if (CheckEdge(v1, v2))
-                    {
-                        // Calculate distance or weight for the edge (optional)
-                        int weight = CalculateEdgeWeight(v1, v2);
 
-                        // Add the edge to the graph
-                        grafo.AgregarArista(0, v1, v2, weight); // Assuming id=0 for simplicity
+                    if (CheckEdge(v1, v2))//Chequear si hay conexion directa entre v1 y v2 , osea si hay arista entre v1 y v2
+                    {
+                        int weight = CalculateEdgeWeight(v1, v2);//calcula el peso de la arista
+                        grafo.AgregarArista(0, v1, v2, weight); // Añade la arista al Grafo con id0
                     }
                 }
             }

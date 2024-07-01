@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,39 +29,34 @@ public class Dijkstra : MonoBehaviour
     public static void Dijks(Grafo grafo, GameObject source)
     {
         int verticesCount = grafo.cantNodos;
+        //print("Cantidad de nodos en el grafo: "  +grafo.cantNodos);
 
-        // Convert GameObject source to its corresponding index in Etiqs array
-        int sourceIndex = grafo.Vert2Indice(source);
+        int sourceIndex = grafo.Vert2Indice(source);// Convert GameObject source to its corresponding index in Etiqs array
 
-        // Get adjacency matrix from Grafo
-        int[,] graph = grafo.MAdy;
+        int[,] graph = grafo.MAdy;// Get adjacency matrix from Grafo
 
-        // Initialize distances and path tracking arrays
-        distance = new int[verticesCount];
+        distance = new int[verticesCount];// Initialize distances and path tracking arrays
+
         bool[] shortestPathTreeSet = new bool[verticesCount];
         GameObject[] nodos1 = new GameObject[verticesCount];
         GameObject[] nodos2 = new GameObject[verticesCount];
-
         for (int i = 0; i < verticesCount; ++i)
         {
             distance[i] = int.MaxValue;
             shortestPathTreeSet[i] = false;
             nodos1[i] = nodos2[i] = null;
         }
-
-        // Distance to source vertex is 0
-        distance[sourceIndex] = 0;
+        //print("Valor del source index: " +sourceIndex);
+        distance[sourceIndex] = 0;// Distance to source vertex is 0
         nodos1[sourceIndex] = nodos2[sourceIndex] = grafo.Etiqs[sourceIndex];
-
-        // Find shortest path for all vertices
-        for (int count = 0; count < verticesCount - 1; ++count)
+        for (int count = 0; count < verticesCount - 1; ++count)// Find shortest path for all vertices
         {
             int u = MinimumDistance(distance, shortestPathTreeSet, verticesCount);
             shortestPathTreeSet[u] = true;
 
             for (int v = 0; v < verticesCount; ++v)
             {
-                if (!shortestPathTreeSet[v] && graph[u, v] != 0 && distance[u] != int.MaxValue && distance[u] + graph[u, v] < distance[v])
+                if (!shortestPathTreeSet[v] && Convert.ToBoolean(graph[u, v]) && distance[u] != int.MaxValue && distance[u] + graph[u, v] < distance[v])
                 {
                     distance[v] = distance[u] + graph[u, v];
                     nodos1[v] = grafo.Etiqs[u];
@@ -68,9 +64,7 @@ public class Dijkstra : MonoBehaviour
                 }
             }
         }
-
-        // Build path of nodes
-        nodos = new string[verticesCount];
+        nodos = new string[verticesCount];// Build path of nodes
         GameObject nodOrig = grafo.Etiqs[sourceIndex];
         for (int i = 0; i < verticesCount; i++)
         {
