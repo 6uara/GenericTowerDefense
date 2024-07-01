@@ -26,7 +26,7 @@ public class Grafo : MonoBehaviour,IGrafo
             MAdy[i, cantNodos] = 0;
         }
         cantNodos++;
-        //print(cantNodos);
+        print(cantNodos);
     }
     public void EliminarVertice(GameObject v)
     {
@@ -50,14 +50,14 @@ public class Grafo : MonoBehaviour,IGrafo
         int i = cantNodos - 1;
         while (i >= 0)
         {
+            //print(Etiqs[i] != null && Etiqs[i] == v);
             if(Etiqs[i] != null && Etiqs[i] == v)
             {
                 return i;
             }else{
-                if(i>0){
-                    i--;
-                }
+                i--; 
             }
+            
         }
 
         return i;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Dijkstra : MonoBehaviour
+public class Dijkstra
 {
     public static int[] distance;
     public static string[] nodos;
@@ -29,9 +29,10 @@ public class Dijkstra : MonoBehaviour
     public static void Dijks(Grafo grafo, GameObject source)
     {
         int verticesCount = grafo.cantNodos;
-        //print("Cantidad de nodos en el grafo: "  +grafo.cantNodos);
-
-        int sourceIndex = grafo.Vert2Indice(source);// Convert GameObject source to its corresponding index in Etiqs array
+        Debug.Log("Cantidad de nodos en el grafo: " + verticesCount);
+        
+        int sourceIndex = grafo.Vert2Indice(source); // Convert GameObject source to its corresponding index in Etiqs array
+        Debug.Log("Valor del source index: " + sourceIndex);
 
         int[,] graph = grafo.MAdy;// Get adjacency matrix from Grafo
 
