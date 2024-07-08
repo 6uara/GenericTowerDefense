@@ -14,44 +14,36 @@ public class EnemyMovement : MonoBehaviour
     
     void Start()
     {
+        myDijkstra = new Dijkstra();
         CalculatePath();
     }
     void CalculatePath()
     {
-        if (GDManager.Instance == null)
-        {
-            Debug.LogError("GDManager instance is not found!");
-            return;
-        }
+        PointInfo id = startWaypoint.GetComponent<PointInfo>();
+        myDijkstra.Dijks(GDManager.Instance.grafo, id.ID);
 
-        myDijkstra = gameObject.AddComponent<Dijkstra>(); // Ensuring Dijkstra is a component of the GameObject
-        myDijkstra.Dijks(GDManager.Instance.grafo, startWaypoint);
-
-        GameObject targetObject = GameObject.Find(goalName);
-        if (targetObject == null)
-        {
-            Debug.LogError("Target object not found: " + goalName);
-            return;
-        }
-
+        GameObject targetObject = GDManager.Instance.Vertices[GDManager.Instance.Vertices.Length -1];
         int targetIndex = GDManager.Instance.grafo.Vert2Indice(targetObject);
+        for (int i=0; i< myDijkstra.nodos.Length;i++)
+        {
+            print("Nodo de myDijkstra "+myDijkstra.nodos[i]);
+        }
+
         string[] pathToTarget = myDijkstra.nodos[targetIndex].Split(',');
-
-        Debug.Log("Path to Target: " + string.Join(", ", pathToTarget)); // Log the path
-
+        int[] pathID = new int[pathToTarget.Length];
         pathPositions = new Vector3[pathToTarget.Length];
         for (int i = 0; i < pathToTarget.Length; i++)
         {
-            Debug.Log("Finding GameObject: " + pathToTarget[i]);
-            GameObject node = GameObject.Find(pathToTarget[i]);
-            if (node != null)
+            pathID[i] = System.Convert.ToInt32(pathToTarget[i]);
+        }
+        for(int a = 0; a<pathToTarget.Length;a++)
+        {
+            for(int d = 0; d < GDManager.Instance.Vertices.Length;d++)
             {
-                pathPositions[i] = node.transform.position;
-                Debug.Log("Found GameObject: " + pathToTarget[i] + " at position: " + node.transform.position);
-            }
-            else
-            {
-                Debug.LogError("Node not found: " + pathToTarget[i]);
+                if(pathID[a] == GDManager.Instance.Vertices[d].GetComponent<PointInfo>().ID )
+                {
+                    pathPositions[a] = GDManager.Instance.Vertices[d].transform.position;
+                }
             }
         }
         nodosrecorridos = 0;

@@ -6,6 +6,8 @@ public class GDManager : MonoBehaviour
 {
     public Grafo grafo;
     public GameObject startWaypoint; // Starting waypoint
+    public GameObject[] Vertices;
+    public GameObject[] Aristas;
 
     public static GDManager Instance;
 
@@ -24,8 +26,8 @@ public class GDManager : MonoBehaviour
         InitializeGraph(); 
         //print("MAdy");
         //grafo.PrintMatrix(grafo.MAdy);
-        print("Mid");
-        grafo.PrintMatrix(grafo.MId);
+        //print("Mid");
+        //grafo.PrintMatrix(grafo.MId);
         //print("Cantidad de Nodos:");
         //print(grafo.cantNodos);
         //print("etiqs");
@@ -40,16 +42,13 @@ public class GDManager : MonoBehaviour
         grafo = new Grafo();
         grafo.InicializarGrafo();//Inicializa el Grafo
 
-        GameObject[] waypoints = GameObject.FindGameObjectsWithTag("Waypoint");//Agarra todos los GameObject con Tag "Waypoint" y los añade como vertices
-        foreach (GameObject waypoint in waypoints)
+        for (int i=0; i< Vertices.Length;i++)
         {
-            grafo.AgregarVertice(waypoint);
+            grafo.AgregarVertice(Vertices[i]);
         }
-        GameObject[] Edges = GameObject.FindGameObjectsWithTag("Edge");
-        foreach(GameObject edge in Edges)
+        for(int i=0; i< Aristas.Length;i++)
         {
-            AristaScript arista = edge.GetComponent<AristaScript>();
-            print(edge);
+            AristaScript arista = Aristas[i].GetComponent<AristaScript>();
             if (arista != null)
             {
                 grafo.AgregarArista(4, arista.Vertice1, arista.Vertice2, arista.Weight);
