@@ -27,7 +27,7 @@ public class TheSceneManager : MonoBehaviour
     {
         levelTree = new Tree();
         levelTree.InicilizeTree();
-        levelTree.AddElement(0);
+        levelTree.AddElement(1);
     }
 
     public void LoadFirstLevel()
@@ -38,14 +38,14 @@ public class TheSceneManager : MonoBehaviour
 
     public void FinishedTutorial()
     {
-        levelTree.RightBranch().AddElement(1);
-        levelTree.LeftBranch().AddElement(2);
+        levelTree.RightBranch().AddElement(2);
+        levelTree.LeftBranch().AddElement(3);
         isTutorialComplete = true;
     }
 
     public void FinishedLevel2()
     {
-        levelTree.RightBranch().RightBranch().AddElement(3);
+        levelTree.RightBranch().RightBranch().AddElement(4);
         isLevel2Completed = true;
     }
 
