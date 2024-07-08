@@ -11,6 +11,12 @@ public class EnemyMovement : MonoBehaviour
     private Vector3[] pathPositions;
     private Dijkstra myDijkstra;
     private int nodosrecorridos;
+    private Vector3 target;
+    [SerializeField] private EnemyData data;
+    private int randomNum;
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private GameObject drop;
+    [SerializeField] private int health;
     
     void Start()
     {
@@ -46,28 +52,71 @@ public class EnemyMovement : MonoBehaviour
                 }
             }
         }
+        target = pathPositions[0]; 
         nodosrecorridos = 0;
     }
 
-    IEnumerator FollowPath()
-    {
-        for (int i = 0; i < pathPositions.Length; i++)
-        {
-            Vector3 startPosition = transform.position;
-            Vector3 targetPosition = pathPositions[i];
-            float journeyLength = Vector3.Distance(startPosition, targetPosition);
-            float startTime = Time.time;
 
-            while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
+    private void Update()
+    {
+        if (Vector2.Distance(target, transform.position) <= 0.1f)
+        {
+            nodosrecorridos++;
+            if (nodosrecorridos >= pathPositions.Length)
             {
-                float distCovered = (Time.time - startTime) * movementSpeed;
-                float fractionOfJourney = distCovered / journeyLength;
-                transform.position = Vector3.Lerp(startPosition, targetPosition, fractionOfJourney);
-                yield return null;
+                Destroy(gameObject);
+                return;
             }
-            
-            // Ensure the enemy reaches the exact target position
-            transform.position = targetPosition;
+            else
+            {
+                target = pathPositions[nodosrecorridos];
+            }
+        }        
+    }
+
+    private void FixedUpdate()
+    {
+        if (target == null)
+        {
+            return;
+        }
+        else
+        {
+            Vector2 direction = (target - transform.position).normalized;
+            rb.velocity = direction * data.Speed;
         }
     }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0) 
+        {
+            Die();
+        }
+    }
+
+
+    public void Die()
+    {
+        Destroy(gameObject);
+        randomNum = UnityEngine.Random.Range(0,3);
+        var pos = new Vector3(transform.position.x,transform.position.y,transform.position.z -4);
+        if(randomNum == 0)
+        {
+          Instantiate(drop,pos,transform.rotation);  
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Castle"))
+        {
+            collision.gameObject.GetComponent<MainCastle>().TakeDamage(5);
+            //enemyDied?.Invoke();
+            Destroy(gameObject);
+        }
+    }
+
+
 }
