@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Grafo : IGrafo
 {
-    static int n = 10;
+    static int n = 20;
     public int[,] MAdy;
     public int[,] MId;
     public GameObject[] Etiqs;

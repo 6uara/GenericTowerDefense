@@ -7,7 +7,7 @@ public class EnemyMovement : MonoBehaviour
     public GameObject startWaypoint; // Starting waypoint
     public GameObject goalWaypoint; // End waypoint
     public float movementSpeed = 2;
-    private string goalName = "FinalPoint";
+    private string startname = "StartingPoint";
     private Vector3[] pathPositions;
     private Dijkstra myDijkstra;
     private int nodosrecorridos;
@@ -17,9 +17,13 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private GameObject drop;
     [SerializeField] private int health;
+    private int targetIndex;
+    private GameObject targetObject;
     
     void Start()
     {
+        startWaypoint = GetClosestObject();
+        print(startWaypoint);
         myDijkstra = new Dijkstra();
         CalculatePath();
     }
@@ -27,9 +31,15 @@ public class EnemyMovement : MonoBehaviour
     {
         PointInfo id = startWaypoint.GetComponent<PointInfo>();
         myDijkstra.Dijks(GDManager.Instance.grafo, id.ID);
-
-        GameObject targetObject = GDManager.Instance.Vertices[GDManager.Instance.Vertices.Length -1];
-        int targetIndex = GDManager.Instance.grafo.Vert2Indice(targetObject);
+        if(id.ID != 0){
+            targetObject = GameObject.Find("FinalPoint");
+            targetIndex = GDManager.Instance.grafo.Vert2Indice(targetObject);
+        }else{
+            targetObject = GameObject.Find("FinalPoint2");
+            targetIndex = GDManager.Instance.grafo.Vert2Indice(targetObject);
+        }
+        //GameObject targetObject = GDManager.Instance.Vertices[GDManager.Instance.Vertices.Length -1];
+        //int targetIndex = GDManager.Instance.grafo.Vert2Indice(targetObject);
         for (int i=0; i< myDijkstra.nodos.Length;i++)
         {
             print("Nodo de myDijkstra "+myDijkstra.nodos[i]);
@@ -115,6 +125,30 @@ public class EnemyMovement : MonoBehaviour
             collision.gameObject.GetComponent<MainCastle>().TakeDamage(5);
             //enemyDied?.Invoke();
             Destroy(gameObject);
+        }
+    }
+
+    private GameObject GetClosestObject()
+    {
+        float distanceToObj1 = 0;
+        float distanceToObj2 = 0;
+        GameObject startone = GameObject.Find("StartingPoint");
+        GameObject starttwo = GameObject.Find("StartingPoint2");
+        if(starttwo == null)
+        {
+            return startone;
+        }else{
+            distanceToObj1 = Vector3.Distance(gameObject.transform.position, startone.transform.position);
+            distanceToObj2 = Vector3.Distance(gameObject.transform.position, starttwo.transform.position);
+        }
+
+        if (distanceToObj1 < distanceToObj2)
+        {
+            return startone;
+        }
+        else
+        {
+            return starttwo;
         }
     }
 

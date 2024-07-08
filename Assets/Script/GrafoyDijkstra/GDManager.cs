@@ -5,7 +5,6 @@ using UnityEngine;
 public class GDManager : MonoBehaviour
 {
     public Grafo grafo;
-    public GameObject startWaypoint; // Starting waypoint
     public GameObject[] Vertices;
     public GameObject[] Aristas;
 
