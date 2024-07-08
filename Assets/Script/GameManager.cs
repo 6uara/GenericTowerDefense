@@ -49,6 +49,11 @@ public class GameManager : MonoBehaviour
             sceneManager.FinishedTutorial();
             Debug.Log("Tutorial terminado..., desbloqueando niveles");
         }
+        else if (SceneManager.GetActiveScene().name == "Level2")
+        {
+            sceneManager.FinishedLevel2();
+            Debug.Log("Nivel 2 terminado..., desbloqueando niveles");
+        }
         SaveScore(castle.GetHealth(), SceneManager.GetActiveScene().name);
         sceneManager.LoadNewScene("VictoryScene");
     }

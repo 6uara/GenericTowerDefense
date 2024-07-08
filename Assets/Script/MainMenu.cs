@@ -39,6 +39,11 @@ public class MainMenu : MonoBehaviour
         sceneManager.LoadBranch(isRight);
     }
 
+    public void LoadLevelByBranchByBranch(bool isRight)
+    {
+        sceneManager.LoadBranchByBranch(isRight);
+    }
+
     public void LoadFirstLevel()
     {
         sceneManager.LoadFirstLevel();

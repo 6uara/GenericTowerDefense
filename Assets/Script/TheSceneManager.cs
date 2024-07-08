@@ -82,22 +82,10 @@ public class TheSceneManager : MonoBehaviour
 
     public void LoadBranchByBranch(bool isRight)
     {
-        if (levelTree.RightBranch().EmptyTree() || levelTree.LeftBranch().EmptyTree())
+        if (isRight)
         {
-            Debug.Log("You must complete tutorial!");
-        }
-        else
-        {
-            if (isRight)
-            {
-                SceneManager.LoadScene(levelTree.RightBranch().RightBranch().Root());
-                //SceneManager.LoadScene(levelTree.RightBranch().Root());
-                Debug.Log(levelTree.RightBranch().RightBranch().Root());
-            }
-            else
-            {
-                Debug.Log("Left branch doesnt exist...");
-            }
+            SceneManager.LoadScene(levelTree.RightBranch().RightBranch().Root());
+            Debug.Log(levelTree.RightBranch().RightBranch().Root());
         }
     }
 
