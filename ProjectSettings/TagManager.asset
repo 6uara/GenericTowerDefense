@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Castle
   - SceneManager
+  - Waypoint
+  - Edge
   layers:
   - Default
   - TransparentFX
