@@ -19,6 +19,10 @@ public class MainMenu : MonoBehaviour
         {
             button1.interactable = true;
             button2.interactable = true;
+            if (sceneManager.GetLevel2Completed())
+            {
+                button3.interactable = true;
+            }
         }
         else if (sceneManager.GetLevel2Completed())
         {
@@ -39,9 +43,10 @@ public class MainMenu : MonoBehaviour
         sceneManager.LoadBranch(isRight);
     }
 
-    public void LoadLevelByBranchByBranch(bool isRight)
+    public void LoadLevelByBranchByBranch()
     {
-        sceneManager.LoadBranchByBranch(isRight);
+        sceneManager.LoadBranchByBranch();
+        Debug.Log("Deberia desbloquearse el nivel 3...");
     }
 
     public void LoadFirstLevel()

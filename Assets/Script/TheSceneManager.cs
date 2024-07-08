@@ -8,8 +8,8 @@ public class TheSceneManager : MonoBehaviour
     public static TheSceneManager Instance;
 
     private Tree levelTree;
-    private bool isTutorialComplete = false;
-    private bool isLevel2Completed = false;
+    public bool isTutorialComplete = false;
+    public bool isLevel2Completed = false;
 
     [Header("Scenes List")]
     [SerializeField] private List<string> sceneList;
@@ -80,13 +80,10 @@ public class TheSceneManager : MonoBehaviour
         }
     }
 
-    public void LoadBranchByBranch(bool isRight)
+    public void LoadBranchByBranch()
     {
-        if (isRight)
-        {
-            SceneManager.LoadScene(levelTree.RightBranch().RightBranch().Root());
-            Debug.Log(levelTree.RightBranch().RightBranch().Root());
-        }
+        SceneManager.LoadScene(levelTree.RightBranch().RightBranch().Root());
+        Debug.Log(levelTree.RightBranch().RightBranch().Root());
     }
 
     public void ExitGame()
