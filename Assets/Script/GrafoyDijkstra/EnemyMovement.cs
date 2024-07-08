@@ -32,10 +32,10 @@ public class EnemyMovement : MonoBehaviour
         PointInfo id = startWaypoint.GetComponent<PointInfo>();
         myDijkstra.Dijks(GDManager.Instance.grafo, id.ID);
         if(id.ID != 0){
-            targetObject = GameObject.Find("FinalPoint");
+            targetObject = GameObject.Find("FinalPoint2");
             targetIndex = GDManager.Instance.grafo.Vert2Indice(targetObject);
         }else{
-            targetObject = GameObject.Find("FinalPoint2");
+            targetObject = GameObject.Find("FinalPoint");
             targetIndex = GDManager.Instance.grafo.Vert2Indice(targetObject);
         }
         //GameObject targetObject = GDManager.Instance.Vertices[GDManager.Instance.Vertices.Length -1];
