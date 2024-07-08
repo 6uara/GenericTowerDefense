@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
     public TheSceneManager sceneManager;
     public Button button1;
     public Button button2;
+    public Button button3;
     public TextMeshProUGUI scoreText;
     private void Start()
     {
@@ -18,6 +19,12 @@ public class MainMenu : MonoBehaviour
         {
             button1.interactable = true;
             button2.interactable = true;
+        }
+        else if (sceneManager.GetLevel2Completed())
+        {
+            button1.interactable = true;
+            button2.interactable = true;
+            button3.interactable = true;
         }
         else
         {

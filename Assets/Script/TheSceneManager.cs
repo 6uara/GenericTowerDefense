@@ -9,6 +9,7 @@ public class TheSceneManager : MonoBehaviour
 
     private Tree levelTree;
     private bool isTutorialComplete = false;
+    private bool isLevel2Completed = false;
 
     [Header("Scenes List")]
     [SerializeField] private List<string> sceneList;
@@ -42,9 +43,20 @@ public class TheSceneManager : MonoBehaviour
         isTutorialComplete = true;
     }
 
+    public void FinishedLevel2()
+    {
+        levelTree.RightBranch().RightBranch().AddElement(3);
+        isLevel2Completed = true;
+    }
+
     public bool GetTutorialCompleted()
     {
         return isTutorialComplete;
+    }
+
+    public bool GetLevel2Completed()
+    {
+        return isLevel2Completed;
     }
 
     public void LoadBranch(bool isRight)
@@ -64,6 +76,27 @@ public class TheSceneManager : MonoBehaviour
             {
                 SceneManager.LoadScene(levelTree.LeftBranch().Root());
                 Debug.Log(levelTree.LeftBranch().Root());
+            }
+        }
+    }
+
+    public void LoadBranchByBranch(bool isRight)
+    {
+        if (levelTree.RightBranch().EmptyTree() || levelTree.LeftBranch().EmptyTree())
+        {
+            Debug.Log("You must complete tutorial!");
+        }
+        else
+        {
+            if (isRight)
+            {
+                SceneManager.LoadScene(levelTree.RightBranch().RightBranch().Root());
+                //SceneManager.LoadScene(levelTree.RightBranch().Root());
+                Debug.Log(levelTree.RightBranch().RightBranch().Root());
+            }
+            else
+            {
+                Debug.Log("Left branch doesnt exist...");
             }
         }
     }
